@@ -16,6 +16,30 @@ export const Header: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          name: 'sublinks',
+          type: 'array',
+          fields: [
+            link({
+              appearances: false,
+            }),
+            {
+              name: 'types',
+              type: 'array',
+              fields: [
+                link({
+                  appearances: false,
+                }),
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                },
+              ],
+            },
+          ],
+          maxRows: 6,
+        },
       ],
       maxRows: 6,
       admin: {

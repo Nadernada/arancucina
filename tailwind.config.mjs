@@ -92,10 +92,18 @@ const config = {
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        maroon: 'hsl(var(--maroon))',
       },
       fontFamily: {
         mono: ['var(--font-geist-mono)'],
         sans: ['var(--font-geist-sans)'],
+        bodoni: ['var(--font-bodoni)'],
+      },
+      fontSize: {
+        h1: 'var(--h1)',
+        h2: 'var(--h2)',
+        h3: 'var(--h3)',
+        h4: 'var(--h4)',
       },
       keyframes: {
         'accordion-down': {
@@ -116,6 +124,7 @@ const config = {
               h1: {
                 fontWeight: 'normal',
                 marginBottom: '0.25em',
+                fontSize: '2.5rem',
               },
             },
           ],

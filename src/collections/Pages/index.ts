@@ -20,6 +20,16 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { TwoSectionBlock } from '@/blocks/TwoSectionBlock/config'
+import { IntroBlock } from '@/blocks/IntroBlock/config'
+import { CarouselBlock } from '@/blocks/CarouselBlock/config'
+import { DesigersBlock } from '@/blocks/DesigersBlock/config'
+import { OurValuesBlock } from '@/blocks/OurValuesBlock/config'
+import { HeadingBlock } from '@/blocks/HeadingBlock/config'
+import { WhoWeAreBlock } from '@/blocks/WhoWeAreBlock/config'
+import { DesignerBlock } from '@/blocks/DesignerBlock/config'
+import { MediaBGBlock } from '@/blocks/MediaBGBlock/config'
+import { ProductsList } from '@/blocks/(products)/ProductsList/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -75,7 +85,23 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                TwoSectionBlock,
+                IntroBlock,
+                CarouselBlock,
+                DesigersBlock,
+                OurValuesBlock,
+                HeadingBlock,
+                WhoWeAreBlock,
+                DesignerBlock,
+                MediaBGBlock,
+                ProductsList,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

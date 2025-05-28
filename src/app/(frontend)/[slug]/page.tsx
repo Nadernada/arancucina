@@ -12,6 +12,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { cn } from '@/utilities/ui'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -63,10 +64,22 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout } = page
+  const { hero: rawHero, layout } = page
+
+  // Transform hero to match expected type
+  const hero = rawHero ? {
+    ...rawHero,
+    type: (rawHero.type || 'none') as 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'productHero',
+    images: rawHero.images?.map(({ image }) => ({ image })) || undefined,
+    richText: rawHero.richText || undefined
+  } : { type: 'none' as const }
 
   return (
-    <article className="pt-16 pb-24">
+    <article
+      className={cn('pt-16', {
+        'pt-0': hero,
+      })}
+    >
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />

@@ -72,6 +72,10 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    designers: Designer;
+    kitchens: Kitchen;
+    products: Product;
+    files: File;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +92,10 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    designers: DesignersSelect<false> | DesignersSelect<true>;
+    kitchens: KitchensSelect<false> | KitchensSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    files: FilesSelect<false> | FilesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -149,7 +157,7 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'productHero';
     richText?: {
       root: {
         type: string;
@@ -190,8 +198,30 @@ export interface Page {
         }[]
       | null;
     media?: (string | null) | Media;
+    images?:
+      | {
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | TwoSectionBlock
+    | IntroBlock
+    | CarouselBlock
+    | DesigersBlock
+    | OurValuesBlock
+    | HeadingBlock
+    | WhoWeAre
+    | DesignerBlock
+    | MediaBGBlock
+    | ProductsList
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -729,6 +759,423 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoSectionBlock".
+ */
+export interface TwoSectionBlock {
+  columns?:
+    | {
+        blockType?: ('text' | 'media') | null;
+        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (string | null) | Media;
+        enableLink?: boolean | null;
+        heading?: string | null;
+        headingSize?: ('h1' | 'h2' | 'h3' | 'h4') | null;
+        icon?: (string | null) | Media;
+        padding?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  clearBg?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'twoSectionBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroBlock".
+ */
+export interface IntroBlock {
+  title: string;
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'introBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlock".
+ */
+export interface CarouselBlock {
+  title?: string | null;
+  description?: string | null;
+  image?: (string | null) | Media;
+  button?: string | null;
+  buttonLink?: string | null;
+  relationTo?: 'kitchens' | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'carouselBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DesigersBlock".
+ */
+export interface DesigersBlock {
+  title?: string | null;
+  designers?: (string | Designer)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'desigersBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "designers".
+ */
+export interface Designer {
+  id: string;
+  title?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurValuesBlock".
+ */
+export interface OurValuesBlock {
+  content?:
+    | {
+        title?: string | null;
+        text?: string | null;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ourValuesBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Heading Block".
+ */
+export interface HeadingBlock {
+  title?: string | null;
+  size?: ('small' | 'loose') | null;
+  text?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'HeadingBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Who We Are".
+ */
+export interface WhoWeAre {
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'WhoWeAreBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DesignerBlock".
+ */
+export interface DesignerBlock {
+  name?: string | null;
+  description?: string | null;
+  image?: (string | null) | Media;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  theme?: ('light' | 'dark') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'DesignerBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBGBlock".
+ */
+export interface MediaBGBlock {
+  media: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'MediaBGBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductsList".
+ */
+export interface ProductsList {
+  products: (string | Product)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ProductsList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: string;
+  title: string;
+  mainImage?: (string | null) | Media;
+  hero: {
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'productHero';
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: string | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    media?: (string | null) | Media;
+    images?:
+      | {
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | TwoSectionBlock
+    | IntroBlock
+    | CarouselBlock
+    | DesigersBlock
+    | OurValuesBlock
+    | HeadingBlock
+    | WhoWeAre
+    | DesignerBlock
+    | MediaBGBlock
+    | ProductIntroBlock
+    | Carousel
+    | HeadingWithTextBlock
+    | TabsBlock
+    | ParallaxBlock
+  )[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductIntroBlock".
+ */
+export interface ProductIntroBlock {
+  title?: string | null;
+  description?: string | null;
+  catalogue?: boolean | null;
+  materials?: boolean | null;
+  store?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ProductIntroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Carousel".
+ */
+export interface Carousel {
+  title?: string | null;
+  description?: string | null;
+  images?:
+    | {
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  button?: string | null;
+  buttonLink?: string | null;
+  arrows?: boolean | null;
+  dots?: boolean | null;
+  slidesPerView?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Carousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingWithTextBlock".
+ */
+export interface HeadingWithTextBlock {
+  blackText?: string | null;
+  brownText?: string | null;
+  description?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'HeadingWithText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Tabs Block".
+ */
+export interface TabsBlock {
+  category?:
+    | {
+        tabName?: string | null;
+        finishes?:
+          | {
+              title?: string | null;
+              image?: (string | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'TabsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Parallax Block".
+ */
+export interface ParallaxBlock {
+  image?: (string | null) | Media;
+  whiteText?: string | null;
+  brownText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ParallaxBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "kitchens".
+ */
+export interface Kitchen {
+  id: string;
+  models?: {
+    title?: string | null;
+    slug?: string | null;
+    mainImage?: (string | null) | Media;
+    thumbImage?: (string | null) | Media;
+  };
+  products: (string | Product)[];
+  title?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "files".
+ */
+export interface File {
+  id: string;
+  title: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -920,6 +1367,22 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'designers';
+        value: string | Designer;
+      } | null)
+    | ({
+        relationTo: 'kitchens';
+        value: string | Kitchen;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'files';
+        value: string | File;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -1008,6 +1471,12 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
       };
   layout?:
     | T
@@ -1017,6 +1486,16 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        twoSectionBlock?: T | TwoSectionBlockSelect<T>;
+        introBlock?: T | IntroBlockSelect<T>;
+        carouselBlock?: T | CarouselBlockSelect<T>;
+        desigersBlock?: T | DesigersBlockSelect<T>;
+        ourValuesBlock?: T | OurValuesBlockSelect<T>;
+        HeadingBlock?: T | HeadingBlockSelect<T>;
+        WhoWeAreBlock?: T | WhoWeAreSelect<T>;
+        DesignerBlock?: T | DesignerBlockSelect<T>;
+        MediaBGBlock?: T | MediaBGBlockSelect<T>;
+        ProductsList?: T | ProductsListSelect<T>;
       };
   meta?:
     | T
@@ -1113,6 +1592,141 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoSectionBlock_select".
+ */
+export interface TwoSectionBlockSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        blockType?: T;
+        size?: T;
+        richText?: T;
+        media?: T;
+        enableLink?: T;
+        heading?: T;
+        headingSize?: T;
+        icon?: T;
+        padding?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  clearBg?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroBlock_select".
+ */
+export interface IntroBlockSelect<T extends boolean = true> {
+  title?: T;
+  richText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselBlock_select".
+ */
+export interface CarouselBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  button?: T;
+  buttonLink?: T;
+  relationTo?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DesigersBlock_select".
+ */
+export interface DesigersBlockSelect<T extends boolean = true> {
+  title?: T;
+  designers?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurValuesBlock_select".
+ */
+export interface OurValuesBlockSelect<T extends boolean = true> {
+  content?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Heading Block_select".
+ */
+export interface HeadingBlockSelect<T extends boolean = true> {
+  title?: T;
+  size?: T;
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Who We Are_select".
+ */
+export interface WhoWeAreSelect<T extends boolean = true> {
+  title?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DesignerBlock_select".
+ */
+export interface DesignerBlockSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  image?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  theme?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBGBlock_select".
+ */
+export interface MediaBGBlockSelect<T extends boolean = true> {
+  media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductsList_select".
+ */
+export interface ProductsListSelect<T extends boolean = true> {
+  products?: T;
   id?: T;
   blockName?: T;
 }
@@ -1275,6 +1889,213 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "designers_select".
+ */
+export interface DesignersSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "kitchens_select".
+ */
+export interface KitchensSelect<T extends boolean = true> {
+  models?:
+    | T
+    | {
+        title?: T;
+        slug?: T;
+        mainImage?: T;
+        thumbImage?: T;
+      };
+  products?: T;
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  mainImage?: T;
+  hero?:
+    | T
+    | {
+        type?: T;
+        richText?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        media?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+      };
+  layout?:
+    | T
+    | {
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        twoSectionBlock?: T | TwoSectionBlockSelect<T>;
+        introBlock?: T | IntroBlockSelect<T>;
+        carouselBlock?: T | CarouselBlockSelect<T>;
+        desigersBlock?: T | DesigersBlockSelect<T>;
+        ourValuesBlock?: T | OurValuesBlockSelect<T>;
+        HeadingBlock?: T | HeadingBlockSelect<T>;
+        WhoWeAreBlock?: T | WhoWeAreSelect<T>;
+        DesignerBlock?: T | DesignerBlockSelect<T>;
+        MediaBGBlock?: T | MediaBGBlockSelect<T>;
+        ProductIntroBlock?: T | ProductIntroBlockSelect<T>;
+        Carousel?: T | CarouselSelect<T>;
+        HeadingWithText?: T | HeadingWithTextBlockSelect<T>;
+        TabsBlock?: T | TabsBlockSelect<T>;
+        ParallaxBlock?: T | ParallaxBlockSelect<T>;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProductIntroBlock_select".
+ */
+export interface ProductIntroBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  catalogue?: T;
+  materials?: T;
+  store?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Carousel_select".
+ */
+export interface CarouselSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  button?: T;
+  buttonLink?: T;
+  arrows?: T;
+  dots?: T;
+  slidesPerView?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingWithTextBlock_select".
+ */
+export interface HeadingWithTextBlockSelect<T extends boolean = true> {
+  blackText?: T;
+  brownText?: T;
+  description?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Tabs Block_select".
+ */
+export interface TabsBlockSelect<T extends boolean = true> {
+  category?:
+    | T
+    | {
+        tabName?: T;
+        finishes?:
+          | T
+          | {
+              title?: T;
+              image?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Parallax Block_select".
+ */
+export interface ParallaxBlockSelect<T extends boolean = true> {
+  image?: T;
+  whiteText?: T;
+  brownText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "files_select".
+ */
+export interface FilesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1553,6 +2374,47 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        sublinks?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              types?:
+                | {
+                    link: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                    };
+                    image?: (string | null) | Media;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1585,6 +2447,27 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  socials?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+        };
+        icon?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1604,6 +2487,35 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        sublinks?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              types?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };
@@ -1630,6 +2542,21 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  socials?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        icon?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1650,6 +2577,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'posts';
           value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'products';
+          value: string | Product;
         } | null);
     global?: string | null;
     user?: (string | null) | User;

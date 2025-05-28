@@ -16,20 +16,18 @@ const initialContext: ThemeContextType = {
 const ThemeContext = createContext(initialContext)
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setThemeState] = useState<Theme | undefined>(
-    canUseDOM ? (document.documentElement.getAttribute('data-theme') as Theme) : undefined,
-  )
+  const [theme, setThemeState] = useState<Theme | undefined>('light')
 
   const setTheme = useCallback((themeToSet: Theme | null) => {
     if (themeToSet === null) {
       window.localStorage.removeItem(themeLocalStorageKey)
-      const implicitPreference = getImplicitPreference()
-      document.documentElement.setAttribute('data-theme', implicitPreference || '')
+      const implicitPreference = 'light'
+      document.documentElement.setAttribute('data-theme', 'light')
       if (implicitPreference) setThemeState(implicitPreference)
     } else {
       setThemeState(themeToSet)
-      window.localStorage.setItem(themeLocalStorageKey, themeToSet)
-      document.documentElement.setAttribute('data-theme', themeToSet)
+      window.localStorage.setItem(themeLocalStorageKey, 'light')
+      document.documentElement.setAttribute('data-theme', 'light')
     }
   }, [])
 
@@ -40,15 +38,15 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     if (themeIsValid(preference)) {
       themeToSet = preference
     } else {
-      const implicitPreference = getImplicitPreference()
+      const implicitPreference = 'light'
 
       if (implicitPreference) {
         themeToSet = implicitPreference
       }
     }
 
-    document.documentElement.setAttribute('data-theme', themeToSet)
-    setThemeState(themeToSet)
+    document.documentElement.setAttribute('data-theme', 'light')
+    setThemeState('light')
   }, [])
 
   return <ThemeContext value={{ setTheme, theme }}>{children}</ThemeContext>

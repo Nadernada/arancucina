@@ -35,6 +35,10 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Product Hero',
+          value: 'productHero',
+        },
       ],
       required: true,
     },
@@ -66,6 +70,20 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'images',
+      type: 'array',
+      admin: {
+        condition: (_, { type } = {}) => type === 'productHero',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
     },
   ],
   label: false,

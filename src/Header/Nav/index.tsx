@@ -5,21 +5,118 @@ import React from 'react'
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
-import Link from 'next/link'
-import { SearchIcon } from 'lucide-react'
+import { cn } from '@/utilities/ui'
+import { usePathname } from 'next/navigation'
+import Image from 'next/image'
+import { Media } from '@/components/Media'
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
+  const path = usePathname()
+  const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <nav className="flex gap-3 items-center">
-      {navItems.map(({ link }, i) => {
-        return <CMSLink key={i} {...link} appearance="link" />
-      })}
-      <Link href="/search">
-        <span className="sr-only">Search</span>
-        <SearchIcon className="w-5 text-primary" />
-      </Link>
-    </nav>
+    <div className="">
+      {' '}
+      {/* Add relative here */}
+      <button className="absolute top-12 right-24 z-30" onClick={() => setIsOpen((prev) => !prev)}>
+        <Image
+          src="/images/hamMenu.svg"
+          alt="Search"
+          width={24}
+          height={24}
+          className={cn('w-5 text-primary transition-all duration-300', {
+            'invert ': !isOpen && path === '/',
+          })}
+        />
+      </button>
+      <nav
+        className={cn(
+          'flex flex-col h-screen w-fit py-12 bg-white absolute top-0 gap-12 items-center justify-center transition-all duration-300 overflow-visible ',
+          {
+            '-right-0': isOpen,
+            '-right-full': !isOpen,
+          },
+        )}
+      >
+        <div className="flex-1 flex flex-col justify-center items-center">
+          {navItems.map(({ link, sublinks }, i) => {
+            return (
+              <div key={i} className="group z-20 py-6 w-full ">
+                {' '}
+                {/* Add relative here */}
+                <CMSLink
+                  key={i}
+                  {...link}
+                  appearance="link"
+                  className={cn('text-md hover:text-black  px-16', {
+                    'text-black': path === link.url,
+                    'text-gray-500': path !== link.url,
+                  })}
+                />
+                {sublinks && sublinks?.length > 0 && (
+                  <div className="absolute h-screen w-full hidden  group-hover:right-full right-0 top-0 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:flex flex-col justify-center items-end gap-6 bg-black text-white  z-0 p-16">
+                    {sublinks?.map(({ link, types }, j) => (
+                      <div
+                        key={j}
+                        className="group/sublink flex flex-col justify-center items-end" // Add relative here
+                      >
+                        <CMSLink
+                          {...link}
+                          appearance="link"
+                          className={cn('text-base hover:text-white whitespace-nowrap block mb-1', {
+                            'text-white': path === link.url,
+                            'text-gray-300': path !== link.url,
+                          })}
+                        />
+                        {types && types.length > 0 && (
+                          <div
+                            className="
+                              invisible static opacity-0 transform translate-y-1 
+                              group-hover/sublink:visible group-hover/sublink:opacity-100 group-hover/sublink:translate-y-0 
+                              transition-all duration-300 ease-in-out 
+                              mt-2 pl-4 h-0 group-hover/sublink:h-auto flex flex-col justify-center items-end  border border-red-600
+                            "
+                          >
+                            {types.map((type, k) => {
+                              return (
+                                <div key={k} className="group/sublink-link">
+                                  {' '}
+                                  {/* Add key and relative here */}
+                                  <CMSLink
+                                    {...type.link}
+                                    appearance="link"
+                                    className={cn(
+                                      'text-xs hover:text-white whitespace-nowrap block mb-1 w-full static border border-red-600',
+                                      {
+                                        'text-gray-500': path === type.link.url,
+                                        'text-gray-300': path !== type.link.url,
+                                      },
+                                    )}
+                                  />
+                                  {/* <div className=" top-0 right-0" style={{ position: 'absolute' }}>
+                                    <div className=" h-screen w-full hidden   right-0 top-0 opacity-0 group-hover/sublink-link:opacity-100 transition-all duration-300 group-hover/sublink-link:flex flex-col  gap-6 bg-black text-white  z-0 p-16">
+                                      <Media
+                                        resource={type.image}
+                                        imgClassName="object-cover "
+                                        fill
+                                      />
+                                    </div>
+                                  </div> */}
+                                </div>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </nav>
+    </div>
   )
 }

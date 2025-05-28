@@ -76,5 +76,16 @@ export const Media: CollectionConfig = {
         crop: 'center',
       },
     ],
+    mimeTypes: [
+      'image/png',
+      'image/jpeg',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml',
+      'video/mp4',
+      'video/webm',
+      'video/ogg',
+      'video/*',
+    ],
   },
 }

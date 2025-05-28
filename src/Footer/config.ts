@@ -25,6 +25,26 @@ export const Footer: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'socials',
+      type: 'array',
+      fields: [
+        link({
+          appearances: false,
+        }),
+        {
+          name: 'icon',
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/Footer/RowLabel#RowLabel',
+        },
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateFooter],

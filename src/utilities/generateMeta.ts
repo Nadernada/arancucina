@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, Config } from '../payload-types'
+import type { Media, Page, Post, Config, Kitchen } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
@@ -20,20 +20,37 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
 }
 
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Post> | null
+  doc: Partial<Page> | Partial<Post> | Partial<Kitchen> | null
 }): Promise<Metadata> => {
   const { doc } = args
 
-  const ogImage = getImageURL(doc?.meta?.image)
+  let metaImage: Media | Config['db']['defaultIDType'] | null | undefined = undefined
+  let metaTitle: string | null | undefined = undefined
+  let metaDescription: string | null | undefined = undefined
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
+  // Handle Page and Post types
+  if (doc && 'meta' in doc) {
+    metaImage = doc.meta?.image
+    metaTitle = doc.meta?.title
+    metaDescription = doc.meta?.description
+  }
+  // Handle Kitchen type
+  else if (doc && 'models' in doc) {
+    metaImage = doc?.models?.mainImage
+    metaTitle = doc?.models?.title
+    metaDescription = doc?.models?.title // Using title as description since Kitchen doesn't have a dedicated description field
+  }
+
+  const ogImage = getImageURL(metaImage)
+
+  const title = metaTitle
+    ? metaTitle + ' | Payload Website Template'
     : 'Payload Website Template'
 
   return {
-    description: doc?.meta?.description,
+    description: metaDescription,
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      description: metaDescription || '',
       images: ogImage
         ? [
             {
