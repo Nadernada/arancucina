@@ -74,6 +74,7 @@ export interface Config {
     users: User;
     designers: Designer;
     kitchens: Kitchen;
+    complements: Complement;
     products: Product;
     files: File;
     redirects: Redirect;
@@ -94,6 +95,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     designers: DesignersSelect<false> | DesignersSelect<true>;
     kitchens: KitchensSelect<false> | KitchensSelect<true>;
+    complements: ComplementsSelect<false> | ComplementsSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     files: FilesSelect<false> | FilesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -221,6 +223,7 @@ export interface Page {
     | DesignerBlock
     | MediaBGBlock
     | ProductsList
+    | MapBlock
   )[];
   meta?: {
     title?: string | null;
@@ -486,6 +489,7 @@ export interface ContentBlock {
           };
           [k: string]: unknown;
         } | null;
+        title?: string | null;
         enableLink?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
@@ -1029,6 +1033,7 @@ export interface Product {
     | HeadingWithTextBlock
     | TabsBlock
     | ParallaxBlock
+    | TextWithCarousel
   )[];
   meta?: {
     title?: string | null;
@@ -1055,6 +1060,9 @@ export interface ProductIntroBlock {
   catalogue?: boolean | null;
   materials?: boolean | null;
   store?: boolean | null;
+  type?: string | null;
+  dimensions?: boolean | null;
+  finishes?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'ProductIntroBlock';
@@ -1129,9 +1137,64 @@ export interface ParallaxBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithCarousel".
+ */
+export interface TextWithCarousel {
+  blackText?: string | null;
+  brownText?: string | null;
+  description?: string | null;
+  images?:
+    | {
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'TextWithCarousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBlock".
+ */
+export interface MapBlock {
+  text?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mapBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "kitchens".
  */
 export interface Kitchen {
+  id: string;
+  models?: {
+    title?: string | null;
+    slug?: string | null;
+    mainImage?: (string | null) | Media;
+    thumbImage?: (string | null) | Media;
+  };
+  products: (string | Product)[];
+  title?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "complements".
+ */
+export interface Complement {
   id: string;
   models?: {
     title?: string | null;
@@ -1375,6 +1438,10 @@ export interface PayloadLockedDocument {
         value: string | Kitchen;
       } | null)
     | ({
+        relationTo: 'complements';
+        value: string | Complement;
+      } | null)
+    | ({
         relationTo: 'products';
         value: string | Product;
       } | null)
@@ -1496,6 +1563,7 @@ export interface PagesSelect<T extends boolean = true> {
         DesignerBlock?: T | DesignerBlockSelect<T>;
         MediaBGBlock?: T | MediaBGBlockSelect<T>;
         ProductsList?: T | ProductsListSelect<T>;
+        mapBlock?: T | MapBlockSelect<T>;
       };
   meta?:
     | T
@@ -1545,6 +1613,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | {
         size?: T;
         richText?: T;
+        title?: T;
         enableLink?: T;
         link?:
           | T
@@ -1727,6 +1796,15 @@ export interface MediaBGBlockSelect<T extends boolean = true> {
  */
 export interface ProductsListSelect<T extends boolean = true> {
   products?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MapBlock_select".
+ */
+export interface MapBlockSelect<T extends boolean = true> {
+  text?: T;
   id?: T;
   blockName?: T;
 }
@@ -1931,6 +2009,33 @@ export interface KitchensSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "complements_select".
+ */
+export interface ComplementsSelect<T extends boolean = true> {
+  models?:
+    | T
+    | {
+        title?: T;
+        slug?: T;
+        mainImage?: T;
+        thumbImage?: T;
+      };
+  products?: T;
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
@@ -1986,6 +2091,7 @@ export interface ProductsSelect<T extends boolean = true> {
         HeadingWithText?: T | HeadingWithTextBlockSelect<T>;
         TabsBlock?: T | TabsBlockSelect<T>;
         ParallaxBlock?: T | ParallaxBlockSelect<T>;
+        TextWithCarousel?: T | TextWithCarouselSelect<T>;
       };
   meta?:
     | T
@@ -2011,6 +2117,9 @@ export interface ProductIntroBlockSelect<T extends boolean = true> {
   catalogue?: T;
   materials?: T;
   store?: T;
+  type?: T;
+  dimensions?: T;
+  finishes?: T;
   id?: T;
   blockName?: T;
 }
@@ -2075,6 +2184,23 @@ export interface ParallaxBlockSelect<T extends boolean = true> {
   image?: T;
   whiteText?: T;
   brownText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithCarousel_select".
+ */
+export interface TextWithCarouselSelect<T extends boolean = true> {
+  blackText?: T;
+  brownText?: T;
+  description?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

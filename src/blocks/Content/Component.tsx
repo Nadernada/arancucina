@@ -5,6 +5,8 @@ import RichText from '@/components/RichText'
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 
 export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   const { columns } = props
@@ -17,29 +19,57 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   }
 
   return (
-    <div className="container my-16">
+    <div className=" mt-16">
       <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {
-            const { enableLink, link, richText, size } = col
+            const { enableLink, link, richText, size, title } = col
 
             return (
               <div
-                className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size!]}`, {
+                className={cn(`col-span-4 space-y-6 p-10 lg:col-span-${colsSpanClasses[size!]}`, {
                   'md:col-span-2': size !== 'full',
+                  'bg-black': index % 2 === 0,
                 })}
                 key={index}
               >
+                {title && (
+                  <h2
+                    className={cn('text-2xl font-bold font-bodoni', {
+                      'text-white': index % 2 === 0,
+                    })}
+                  >
+                    {title}
+                  </h2>
+                )}
+
+                <div
+                  className={cn('h-[3px] w-1/3 bg-black', {
+                    'bg-white': index % 2 === 0,
+                  })}
+                ></div>
                 {richText && (
                   <RichText
                     data={richText}
                     enableGutter={false}
-                    className="text-[#A59D95] text-center"
+                    className={cn('', {
+                      'text-white': index % 2 === 0,
+                    })}
                   />
                 )}
 
-                {enableLink && <CMSLink {...link} />}
+                {enableLink && (
+                  <Link
+                    href={link?.url || ''}
+                    className={cn('flex items-center gap-2', {
+                      'invert ': index % 2 === 0,
+                    })}
+                  >
+                    {link?.label || ''}
+                    <ArrowRight />
+                  </Link>
+                )}
               </div>
             )
           })}

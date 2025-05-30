@@ -30,7 +30,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi)
 
-  console.log(slides)
+  console.log(slidesPerView)
 
   return (
     <section className="embla relative">
@@ -39,7 +39,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           {slides?.map((slide, index) => (
             <div
               className="embla__slide relative aspect-square"
-              style={{ flex: `0 0 ${slidesPerView === 3 ? '33.33%' : '25%'}` }}
+              style={{ flex: `0 0 ${slidesPerView ? 100 / slidesPerView : 100}%` }}
               key={index}
             >
               <Media resource={slide.image} imgClassName="object-cover z-0" fill />

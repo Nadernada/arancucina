@@ -30,6 +30,7 @@ import { WhoWeAreBlock } from '@/blocks/WhoWeAreBlock/config'
 import { DesignerBlock } from '@/blocks/DesignerBlock/config'
 import { MediaBGBlock } from '@/blocks/MediaBGBlock/config'
 import { ProductsList } from '@/blocks/(products)/ProductsList/config'
+import { MapBlock } from '@/blocks/MapBlock/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -101,6 +102,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 DesignerBlock,
                 MediaBGBlock,
                 ProductsList,
+                MapBlock,
               ],
               required: true,
               admin: {

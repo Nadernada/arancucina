@@ -49,6 +49,10 @@ const columnFields: Field[] = [
     label: false,
   },
   {
+    name: 'title',
+    type: 'text',
+  },
+  {
     name: 'enableLink',
     type: 'checkbox',
   },

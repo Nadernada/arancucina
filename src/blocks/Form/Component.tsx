@@ -1,5 +1,12 @@
 'use client'
-import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
+import type {
+  FormFieldBlock as BaseFormFieldBlock,
+  Form as FormType,
+} from '@payloadcms/plugin-form-builder/types'
+
+type FormFieldBlock = BaseFormFieldBlock & {
+  width?: number
+}
 
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
@@ -10,12 +17,17 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import { cn } from '@/utilities/ui'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export type FormBlockType = {
   blockName?: string
   blockType?: 'formBlock'
   enableIntro: boolean
-  form: FormType
+  form: FormType & {
+    fields: FormFieldBlock[]
+  }
   introContent?: SerializedEditorState
 }
 
@@ -114,11 +126,46 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div className="container">
       {enableIntro && introContent && !hasSubmitted && (
-        <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
+        <RichText
+          className="mb-8 lg:mb-12 text-center font-bodoni"
+          data={introContent}
+          enableGutter={false}
+        />
       )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
+      <div className="p-4 lg:p-6 flex flex-row gap-8 justify-center items-start">
+        <div className="mb-8 lg:mb-12 bg-gray-200 p-6 w-fit !h-[fit-content] gap-6 flex flex-col">
+          <h2 className="text-2xl font-bold font-bodoni">ARAN World</h2>
+          <p className="text-gray-600">
+            Zona Industriale – Casoli
+            <br />
+            64032 Atri (TE)
+            <br />
+            VAT number 01444880676
+          </p>
+          <p className="text-gray-600">
+            phone: +39 085 87941
+            <br />
+            fax: +39 085 8794315
+          </p>
+          <div className="flex flex-row gap-3 justify-between items-center">
+            {Socials?.map(({ link, url }, i) => {
+              return (
+                <Link href={link?.url || ''} key={i}>
+                  <Image src={url || ''} width={24} height={24} alt="" className="" />
+                </Link>
+              )
+            })}
+          </div>
+
+          <Link
+            href="https://arancucine.whistlelink.com/"
+            className="bg-black text-white px-6 py-3 rounded-full text-center"
+          >
+            Whistleblowing
+          </Link>
+        </div>
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
@@ -126,8 +173,8 @@ export const FormBlock: React.FC<
           {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
-            <form id={formID} onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4 last:mb-0">
+            <form id={formID} onSubmit={handleSubmit(onSubmit)} className="!max-w-[35rem]">
+              <div className="mb-4 last:mb-0 grid grid-cols-2 gap-4">
                 {formFromProps &&
                   formFromProps.fields &&
                   formFromProps.fields?.map((field, index) => {
@@ -135,7 +182,13 @@ export const FormBlock: React.FC<
                     const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
                     if (Field) {
                       return (
-                        <div className="mb-6 last:mb-0" key={index}>
+                        <div
+                          className={cn('mb-1 last:mb-0', {
+                            'col-span-1': (formFromProps.fields?.[index]?.width ?? 100) < 50,
+                            'col-span-2': (formFromProps.fields?.[index]?.width ?? 100) >= 50,
+                          })}
+                          key={index}
+                        >
                           <Field
                             form={formFromProps}
                             {...field}
@@ -161,3 +214,65 @@ export const FormBlock: React.FC<
     </div>
   )
 }
+
+const Socials = [
+  {
+    link: {
+      type: 'custom',
+      url: 'https://www.instagram.com',
+      label: 'instagram',
+    },
+    url: '/api/media/file/download%20(1).svg',
+    thumbnailURL: null,
+  },
+
+  {
+    link: {
+      type: 'custom',
+      url: 'https://www.instagram.com',
+      label: 'instagram',
+    },
+    url: '/api/media/file/download%20(3).svg',
+    thumbnailURL: null,
+  },
+  {
+    link: {
+      type: 'custom',
+      url: 'https://www.instagram.com',
+      label: 'instagram',
+    },
+    url: '/api/media/file/download%20(4).svg',
+    thumbnailURL: null,
+  },
+
+  {
+    link: {
+      type: 'custom',
+      url: 'https://www.instagram.com',
+      label: 'instagram',
+    },
+    url: '/api/media/file/download%20(5).svg',
+    thumbnailURL: null,
+  },
+
+  {
+    link: {
+      type: 'custom',
+      url: 'https://www.instagram.com',
+      label: 'instagram',
+    },
+    url: '/api/media/file/download.svg',
+    thumbnailURL: null,
+  },
+
+  {
+    link: {
+      type: 'custom',
+      url: 'https://www.instagram.com',
+      label: 'instagram',
+    },
+
+    url: '/api/media/file/download%20(1).svg',
+    thumbnailURL: null,
+  },
+]

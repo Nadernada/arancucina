@@ -21,6 +21,7 @@ import { Designers } from './collections/Designers'
 import { Kitchens } from './collections/Kitchens'
 import { Products } from './collections/Products'
 import { Files } from './collections/Files'
+import { Complements } from './collections/Complements'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -67,7 +68,18 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Designers, Kitchens, Products, Files],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    Designers,
+    Kitchens,
+    Complements,
+    Products,
+    Files,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

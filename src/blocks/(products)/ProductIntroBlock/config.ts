@@ -27,5 +27,19 @@ export const ProductIntroBlock: Block = {
       type: 'checkbox',
       defaultValue: true,
     },
+    {
+      name: 'type',
+      type: 'text',
+    },
+    {
+      name: 'dimensions',
+      type: 'checkbox',
+      defaultValue: true,
+    },
+    {
+      name: 'finishes',
+      type: 'checkbox',
+      defaultValue: true,
+    },
   ],
 }
