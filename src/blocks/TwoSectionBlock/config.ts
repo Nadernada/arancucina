@@ -112,6 +112,11 @@ const columnFields: Field[] = [
     name: 'padding',
     type: 'checkbox',
   },
+  {
+    name: 'shortHeading',
+    type: 'checkbox',
+    defaultValue: false,
+  },
   link({
     overrides: {
       admin: {
@@ -133,8 +138,9 @@ export const TwoSectionBlock: Block = {
       },
       fields: columnFields,
     },
+
     {
-      name: 'clearBg',
+      name: 'container',
       type: 'checkbox',
       defaultValue: false,
     },

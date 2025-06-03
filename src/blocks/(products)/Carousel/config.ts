@@ -46,5 +46,9 @@ export const Carousel: Block = {
       type: 'number',
       defaultValue: 3,
     },
+    {
+      name: 'slideQuote',
+      type: 'text',
+    },
   ],
 }

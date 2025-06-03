@@ -5,13 +5,13 @@ import { Media } from '@/components/Media'
 
 type TextWithHeadingProp = Pick<
   NonNullable<TwoSectionBlockProps['columns']>[0],
-  'heading' | 'richText' | 'link' | 'headingSize' | 'icon' | 'padding'
+  'heading' | 'richText' | 'link' | 'headingSize' | 'icon' | 'padding' | 'shortHeading'
 > & {
   className?: string
 }
 
 export const TextWithHeading = (props: TextWithHeadingProp) => {
-  const { heading, richText, link, className, headingSize, icon, padding } = props
+  const { heading, richText, link, className, headingSize, icon, padding, shortHeading } = props
 
   const headingSizeMap = {
     h1: 'text-h1',
@@ -23,13 +23,20 @@ export const TextWithHeading = (props: TextWithHeadingProp) => {
   return (
     <div className={cn('flex flex-col gap-10', className)}>
       <div
-        className={cn('flex flex-col gap-7', { 'py-5': headingSize === 'h4', 'py-16': padding })}
+        className={cn('flex flex-col gap-7', {
+          'py-5': headingSize === 'h4',
+          'py-16': padding,
+          'w-2/3': shortHeading,
+        })}
       >
         <div className="flex flex-row justify-start items-center gap-8">
           <h1
             className={cn(
               'font-medium leading-[3rem] uppercase font-bodoni w-full lg:w-4/5 mx-0',
               headingSizeMap[headingSize as keyof typeof headingSizeMap],
+              {
+                'lg:w-2/3': shortHeading,
+              },
             )}
           >
             {heading}

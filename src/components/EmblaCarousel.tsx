@@ -7,6 +7,7 @@ import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrow
 import { DotButton, useDotButton } from './EmblaCarouselDotButton'
 import Image from 'next/image'
 import { DataFromCollectionSlug, CollectionSlug } from 'payload'
+import Link from 'next/link'
 
 const TWEEN_FACTOR_BASE = 0.52
 
@@ -127,24 +128,31 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           <div className="embla__viewport" ref={emblaRef}>
             <div className="embla__container">
               {slides.map((item, index) => (
-                <div className="embla__slide" key={index}>
+                <Link
+                  className="embla__slide cursor-pointer"
+                  key={index}
+                  href={(item as { slug: string }).slug}
+                >
                   <div className="embla__slide__number relative overflow-hidden rounded-none">
                     <h4 className="absolute bottom-2 left-6 text-white font-bodoni text-[2rem] uppercase font-normal z-20">
                       {(item as { models: { title: string } }).models.title}
                     </h4>
 
-                    <Image
-                      src={
-                        (item as { models: { thumbImage: { url: string } } }).models.thumbImage.url
-                      }
-                      alt={(item as { models: { title: string } }).models.title}
-                      width={500}
-                      height={500}
-                      className="w-full"
-                    />
-                    <div className="w-full h-full absolute top-0 left-0 bg-black opacity-50 z-10"></div>
+                    <div className="w-full h-full relative">
+                      <Image
+                        src={
+                          (item as { models: { thumbImage: { url: string } } }).models.thumbImage
+                            .url
+                        }
+                        alt={(item as { models: { title: string } }).models.title}
+                        width={1920}
+                        height={1080}
+                        className="w-full h-full absolute object-cover inset-0 "
+                      />
+                      <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-b from-transparent to-black opacity-80 z-10"></div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

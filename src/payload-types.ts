@@ -523,6 +523,7 @@ export interface ContentBlock {
  */
 export interface MediaBlock {
   media: string | Media;
+  noContainer?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -791,6 +792,7 @@ export interface TwoSectionBlock {
         headingSize?: ('h1' | 'h2' | 'h3' | 'h4') | null;
         icon?: (string | null) | Media;
         padding?: boolean | null;
+        shortHeading?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
@@ -813,7 +815,7 @@ export interface TwoSectionBlock {
         id?: string | null;
       }[]
     | null;
-  clearBg?: boolean | null;
+  container?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'twoSectionBlock';
@@ -853,7 +855,7 @@ export interface CarouselBlock {
   image?: (string | null) | Media;
   button?: string | null;
   buttonLink?: string | null;
-  relationTo?: 'kitchens' | null;
+  relationTo?: ('kitchens' | 'complements') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'carouselBlock';
@@ -1034,6 +1036,9 @@ export interface Product {
     | TabsBlock
     | ParallaxBlock
     | TextWithCarousel
+    | DimensionsBlock
+    | CatalogueBlock
+    | TextImageColBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1085,6 +1090,7 @@ export interface Carousel {
   arrows?: boolean | null;
   dots?: boolean | null;
   slidesPerView?: number | null;
+  slideQuote?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Carousel';
@@ -1119,6 +1125,7 @@ export interface TabsBlock {
         id?: string | null;
       }[]
     | null;
+  padding?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'TabsBlock';
@@ -1149,9 +1156,79 @@ export interface TextWithCarousel {
         id?: string | null;
       }[]
     | null;
+  reversed?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'TextWithCarousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DimensionsBlock".
+ */
+export interface DimensionsBlock {
+  finishes?:
+    | {
+        title?: string | null;
+        images?: TabsBlock[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  finishesImage?: (string | null) | Media;
+  dimensions?: (string | null) | Media;
+  legend?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'DimensionsBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Catalogue Block".
+ */
+export interface CatalogueBlock {
+  pdf?: (string | null) | File;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'CatalogueBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "files".
+ */
+export interface File {
+  id: string;
+  title: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextImageColBlock".
+ */
+export interface TextImageColBlock {
+  columns?:
+    | {
+        blackText?: string | null;
+        grayText?: string | null;
+        description?: string | null;
+        image?: (string | null) | Media;
+        videoAspect?: boolean | null;
+        closeGrid?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'TextImageColBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1216,26 +1293,6 @@ export interface Complement {
   };
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "files".
- */
-export interface File {
-  id: string;
-  title: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1636,6 +1693,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  noContainer?: T;
   id?: T;
   blockName?: T;
 }
@@ -1681,6 +1739,7 @@ export interface TwoSectionBlockSelect<T extends boolean = true> {
         headingSize?: T;
         icon?: T;
         padding?: T;
+        shortHeading?: T;
         link?:
           | T
           | {
@@ -1693,7 +1752,7 @@ export interface TwoSectionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  clearBg?: T;
+  container?: T;
   id?: T;
   blockName?: T;
 }
@@ -2092,6 +2151,9 @@ export interface ProductsSelect<T extends boolean = true> {
         TabsBlock?: T | TabsBlockSelect<T>;
         ParallaxBlock?: T | ParallaxBlockSelect<T>;
         TextWithCarousel?: T | TextWithCarouselSelect<T>;
+        DimensionsBlock?: T | DimensionsBlockSelect<T>;
+        CatalogueBlock?: T | CatalogueBlockSelect<T>;
+        TextImageColBlock?: T | TextImageColBlockSelect<T>;
       };
   meta?:
     | T
@@ -2141,6 +2203,7 @@ export interface CarouselSelect<T extends boolean = true> {
   arrows?: T;
   dots?: T;
   slidesPerView?: T;
+  slideQuote?: T;
   id?: T;
   blockName?: T;
 }
@@ -2173,6 +2236,7 @@ export interface TabsBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  padding?: T;
   id?: T;
   blockName?: T;
 }
@@ -2199,6 +2263,57 @@ export interface TextWithCarouselSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        id?: T;
+      };
+  reversed?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DimensionsBlock_select".
+ */
+export interface DimensionsBlockSelect<T extends boolean = true> {
+  finishes?:
+    | T
+    | {
+        title?: T;
+        images?:
+          | T
+          | {
+              TabsBlock?: T | TabsBlockSelect<T>;
+            };
+        id?: T;
+      };
+  finishesImage?: T;
+  dimensions?: T;
+  legend?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Catalogue Block_select".
+ */
+export interface CatalogueBlockSelect<T extends boolean = true> {
+  pdf?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextImageColBlock_select".
+ */
+export interface TextImageColBlockSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        blackText?: T;
+        grayText?: T;
+        description?: T;
+        image?: T;
+        videoAspect?: T;
+        closeGrid?: T;
         id?: T;
       };
   id?: T;

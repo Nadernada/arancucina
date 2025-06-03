@@ -9,26 +9,40 @@ import { cn } from '@/utilities/ui'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { Media } from '@/components/Media'
+import { X } from 'lucide-react'
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
+export const HeaderNav: React.FC<{
+  data: HeaderType
+  isOpen: boolean
+  setIsOpen: (value: boolean) => void
+  isScrolled: boolean
+}> = ({ data, isOpen, setIsOpen, isScrolled }) => {
   const navItems = data?.navItems || []
   const path = usePathname()
-  const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <div className="">
+    <div className="z-30">
       {' '}
       {/* Add relative here */}
-      <button className="absolute top-12 right-24 z-30" onClick={() => setIsOpen((prev) => !prev)}>
-        <Image
-          src="/images/hamMenu.svg"
-          alt="Search"
-          width={24}
-          height={24}
-          className={cn('w-5 text-primary transition-all duration-300', {
-            'invert ': !isOpen && path === '/',
-          })}
-        />
+      <button className="absolute top-12 right-24 z-40" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? (
+          <X
+            width={24}
+            height={24}
+            className={cn('w-5 text-black transition-all duration-300', {})}
+          />
+        ) : (
+          <Image
+            src="/images/hamMenu.svg"
+            alt="Search"
+            width={24}
+            height={24}
+            className={cn('w-5 text-primary transition-all duration-300', {
+              'invert ': !isScrolled && !isOpen,
+              'invert-0': isScrolled || isOpen,
+            })}
+          />
+        )}
       </button>
       <nav
         className={cn(
@@ -72,10 +86,10 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                         {types && types.length > 0 && (
                           <div
                             className="
-                              invisible static opacity-0 transform translate-y-1 
-                              group-hover/sublink:visible group-hover/sublink:opacity-100 group-hover/sublink:translate-y-0 
+                               opacity-0 
+                              group-hover/sublink:opacity-100
                               transition-all duration-300 ease-in-out 
-                              mt-2 pl-4 h-0 group-hover/sublink:h-auto flex flex-col justify-center items-end  border border-red-600
+                              mt-2 invisible group-hover/sublink:visible pl-4 h-0 group-hover/sublink:h-auto flex flex-col justify-center items-end !static
                             "
                           >
                             {types.map((type, k) => {
@@ -87,22 +101,29 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
                                     {...type.link}
                                     appearance="link"
                                     className={cn(
-                                      'text-xs hover:text-white whitespace-nowrap block mb-1 w-full static border border-red-600',
+                                      'text-xs hover:text-white whitespace-nowrap block mb-1 w-full stati',
                                       {
                                         'text-gray-500': path === type.link.url,
                                         'text-gray-300': path !== type.link.url,
                                       },
                                     )}
                                   />
-                                  {/* <div className=" top-0 right-0" style={{ position: 'absolute' }}>
-                                    <div className=" h-screen w-full hidden   right-0 top-0 opacity-0 group-hover/sublink-link:opacity-100 transition-all duration-300 group-hover/sublink-link:flex flex-col  gap-6 bg-black text-white  z-0 p-16">
+                                  <div
+                                    className="absolute top-0 right-0 group-hover/sublink-link:right-full"
+                                    style={{ position: 'absolute' }}
+                                  >
+                                    <div className=" h-screen w-[30vw] hidden relative right-0 top-0 opacity-0 group-hover/sublink-link:opacity-100 transition-all duration-300 group-hover/sublink-link:flex flex-col justify-end items-start gap-6 bg-black text-white  z-0 p-12">
                                       <Media
                                         resource={type.image}
                                         imgClassName="object-cover "
                                         fill
                                       />
+                                      <div className="fixed inset-0 bg-black/50 z-20 h-full w-full" />
+                                      <p className="text-2xl font-bodoni text-white z-50">
+                                        {type.link.label}
+                                      </p>
                                     </div>
-                                  </div> */}
+                                  </div>
                                 </div>
                               )
                             })}

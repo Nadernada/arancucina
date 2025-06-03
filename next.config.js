@@ -22,6 +22,11 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  webpack: (config) => {
+    config.resolve.alias.canvas = false
+
+    return config
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

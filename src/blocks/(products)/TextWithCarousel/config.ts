@@ -27,5 +27,10 @@ export const TextWithCarousel: Block = {
         },
       ],
     },
+    {
+      name: 'reversed',
+      type: 'checkbox',
+      defaultValue: false,
+    },
   ],
 }

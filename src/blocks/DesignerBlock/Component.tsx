@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import type { DesignerBlock as DesignerBlockType, Media } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { ArrowRight } from 'lucide-react'
 
 export const DesignerBlock: React.FC<DesignerBlockType> = ({
   name,
@@ -18,18 +19,19 @@ export const DesignerBlock: React.FC<DesignerBlockType> = ({
       })}
     >
       <div
-        className={cn('flex flex-col gap-12 justify-start items-start', {
+        className={cn('flex flex-col gap-8 justify-start items-start', {
           'order-2': theme === 'dark',
         })}
       >
-        <h1 className={cn('text-4xl font-bodoni', { 'text-white': theme === 'dark' })}>{name}</h1>
-        <p className={cn({ 'text-white': theme === 'dark' })}>{description}</p>
-        <div className="flex flex-row gap-4 justify-start items-center">
+        <h1 className={cn('text-5xl font-bodoni', { 'text-white': theme === 'dark' })}>{name}</h1>
+        <p className="text-[#a2a2a2]">{description}</p>
+        <div className="flex flex-row gap-4 justify-start items-center hover:opacity-60 transition-colors duration-300 mt-4">
           <a
             href={ctaLink as string}
-            className={cn('font-bold', { 'text-white': theme === 'dark' })}
+            className={cn('font-bold flex flex-row gap-2', { 'text-white': theme === 'dark' })}
           >
             {ctaText}
+            <ArrowRight />
           </a>
         </div>
       </div>

@@ -25,6 +25,9 @@ import { ParallaxBlock } from './(products)/parallaxBlock/Component'
 import { ProductsList } from './(products)/ProductsList/Component'
 import { TextWithCarousel } from './(products)/TextWithCarousel/Component'
 import { MapBlock } from './MapBlock/Component'
+import { DimensionsBlock } from './(products)/DimensionsBlock/Component'
+import { CatalogueBlock } from './(products)/CatalogueBlock/Component'
+import { TextImageColBlock } from './(products)/TextImageColBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -49,6 +52,9 @@ const blockComponents = {
   ProductsList: ProductsList,
   TextWithCarousel: TextWithCarousel,
   mapBlock: MapBlock,
+  DimensionsBlock: DimensionsBlock,
+  CatalogueBlock: CatalogueBlock,
+  TextImageColBlock: TextImageColBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -72,11 +78,13 @@ export const RenderBlocks: React.FC<{
                 <div
                   className={cn({
                     'my-16': blockType !== 'HeadingBlock',
+                    'mt-16': blockType === 'HeadingBlock',
                     'my-0':
                       blockType === 'MediaBGBlock' ||
                       blockType === 'ParallaxBlock' ||
                       blockType === 'mapBlock' ||
-                      blockType === 'content',
+                      blockType === 'content' ||
+                      blockType === 'TextImageColBlock',
                   })}
                   key={index}
                 >

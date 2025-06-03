@@ -21,8 +21,18 @@ export async function Footer() {
           </Link>
 
           <div className="flex flex-row justify-center items-center gap-6">
-            <p className="text-white">Privacy Policy</p>
-            <p className="text-white">Cookie Policy</p>
+            <Link
+              href="/privacy-policy"
+              className="text-white hover:underline hover:opacity-90 transition-all duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/cookie-policy"
+              className="text-white hover:underline hover:opacity-90 transition-all duration-300"
+            >
+              Cookie Policy
+            </Link>
           </div>
         </div>
         <div className="flex flex-col items-start md:flex-row gap-4 md:items-center">
@@ -32,22 +42,20 @@ export async function Footer() {
 
               <div className="flex flex-col justify-center items-start gap-1">
                 <p className="text-white">ARAN World srl Unipersonale</p>
-                <p className="text-white">Zona Industriale Casoli 64032 Atri (TE) P.IVA</p>
+                <p className="text-white">
+                  RABAT-Agdal, 457, Avenue Hassan II, Résidence Mariam, Magasin n° 11
+                </p>
                 <p className="text-white">01444880676</p>
               </div>
             </div>
 
-            <button className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm">
-              Download Design Book
-            </button>
-
-            <button className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm">
-              Reverse area
-            </button>
-
-            <button className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm">
-              Download 3Card Evolution
-            </button>
+            <Link
+              className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm hover:bg-white hover:text-black transition-all duration-300"
+              href="https://reservedarea.aranworld.it/Sud2/login/view/index.php"
+              target="_blank"
+            >
+              Reserved area
+            </Link>
           </div>
         </div>
         <div className="flex flex-col justify-between items-start gap-7">
@@ -57,7 +65,11 @@ export async function Footer() {
             <div className="grid grid-cols-3 gap-y-4 gap-x-10">
               {footerData?.socials?.map(({ link, icon }, i) => {
                 return (
-                  <Link href={link?.url || ''} key={i}>
+                  <Link
+                    href={link?.url || ''}
+                    key={i}
+                    className="hover:scale-110 transition-all duration-300"
+                  >
                     <Image
                       src={(icon as Media)?.url || ''}
                       width={24}
@@ -73,7 +85,7 @@ export async function Footer() {
 
           <div className="flex flex-col justify-center items-start gap-7">
             <p className="text-white uppercase">Catalogues</p>
-            <button className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm">
+            <button className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm hover:bg-white hover:text-black transition-all duration-300">
               Download the catalog
             </button>
           </div>

@@ -2,22 +2,28 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Pause, Play } from 'lucide-react'
 import type { Designer } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { cn } from '@/utilities/ui'
+import type { Media as MediaType } from '@/payload-types'
+import { NextButton } from '@/components/EmblaCarouselArrows'
 
-// const AUTOPLAY_INTERVAL = 5000
-const ANIMATION_DURATION = 500
+const AUTOPLAY_INTERVAL = 5000
+const ANIMATION_DURATION = 800
 
 export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
   const [activeDesignerIndex, setActiveDesignerIndex] = useState(0)
   const [startIndex, setStartIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [imageKey, setImageKey] = useState(0)
+  const [slideDirection, setSlideDirection] = useState('next') // "next" or "prev"
   const [autoplay, setAutoplay] = useState(true)
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null)
 
-  const activeDesigner = designers[activeDesignerIndex]
+  // Track previous and current designers for animation
+  const [previousDesigner, setPreviousDesigner] = useState(designers[0])
+  const [currentDesigner, setCurrentDesigner] = useState(designers[0])
+
   const visibleDesigners = designers.slice(startIndex, startIndex + 3)
 
   // Function to advance to next slide with looping
@@ -25,7 +31,10 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
     if (isAnimating) return
 
     setIsAnimating(true)
-    setImageKey((prev) => prev + 1) // Trigger image fade
+    setSlideDirection('next')
+
+    // Store current designer before changing
+    setPreviousDesigner(designers[activeDesignerIndex])
 
     // Calculate next indices with looping
     let nextStartIndex = startIndex + 1
@@ -42,20 +51,26 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
 
     setStartIndex(nextStartIndex)
     setActiveDesignerIndex(nextActiveIndex)
+    setCurrentDesigner(designers[nextActiveIndex])
 
     // Reset autoplay timer when manually navigating
-    // resetAutoplayTimer()
+    resetAutoplayTimer()
   }
 
   const handleThumbnailClick = (designerIndex: number) => {
     if (isAnimating) return
 
     setIsAnimating(true)
-    setImageKey((prev) => prev + 1) // Trigger image fade
+    setSlideDirection(designerIndex > activeDesignerIndex ? 'next' : 'prev')
+
+    // Store current designer before changing
+    setPreviousDesigner(designers[activeDesignerIndex])
+
     setActiveDesignerIndex(designerIndex)
+    setCurrentDesigner(designers[designerIndex])
 
     // Reset autoplay timer when manually navigating
-    // resetAutoplayTimer()
+    resetAutoplayTimer()
   }
 
   // Toggle autoplay
@@ -64,29 +79,29 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
   }
 
   // Reset autoplay timer
-  // const resetAutoplayTimer = () => {
-  //   if (autoplayTimerRef.current) {
-  //     clearTimeout(autoplayTimerRef.current)
-  //     autoplayTimerRef.current = null
-  //   }
+  const resetAutoplayTimer = () => {
+    if (autoplayTimerRef.current) {
+      clearTimeout(autoplayTimerRef.current)
+      autoplayTimerRef.current = null
+    }
 
-  //   if (autoplay) {
-  //     autoplayTimerRef.current = setTimeout(handleNext, AUTOPLAY_INTERVAL)
-  //   }
-  // }
+    if (autoplay) {
+      autoplayTimerRef.current = setTimeout(handleNext, AUTOPLAY_INTERVAL)
+    }
+  }
 
   // Set up autoplay
-  // useEffect(() => {
-  //   if (autoplay && !isAnimating) {
-  //     autoplayTimerRef.current = setTimeout(handleNext, AUTOPLAY_INTERVAL)
-  //   }
+  useEffect(() => {
+    if (autoplay && !isAnimating) {
+      autoplayTimerRef.current = setTimeout(handleNext, AUTOPLAY_INTERVAL)
+    }
 
-  //   return () => {
-  //     if (autoplayTimerRef.current) {
-  //       clearTimeout(autoplayTimerRef.current)
-  //     }
-  //   }
-  // }, [autoplay, isAnimating])
+    return () => {
+      if (autoplayTimerRef.current) {
+        clearTimeout(autoplayTimerRef.current)
+      }
+    }
+  }, [autoplay, isAnimating])
 
   // Reset animation state after transition completes
   useEffect(() => {
@@ -100,7 +115,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
   return (
     <div className="container mx-auto px-4 py-12 md:py-24">
       <div className="mb-16">
-        <h1 className="text-4xl md:text-6xl font-light tracking-tight uppercase">
+        <h1 className="text-4xl md:text-6xl font-light tracking-tight uppercase font-bodoni">
           The Names That Make
           <br />
           The Difference
@@ -108,31 +123,49 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
         <div className="w-24 h-0.5 bg-black mt-6"></div>
       </div>
 
-      <div className="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-16">
-        {/* Featured designer image with arrow button positioned on right center */}
+      <div className="flex flex-col lg:flex-row justify-between items-start gap-40 md:gap-16">
+        {/* Featured designer image with enhanced animation */}
         <div className="w-full lg:w-1/2 relative">
-          <div className="relative aspect-[3.5/4] max w-full overflow-hidden">
-            <Media
-              fill
-              imgClassName={`object-cover z-0 grayscale transition-opacity duration-500 ease-in-out ${
-                isAnimating ? 'opacity-0' : 'opacity-100'
+          <div className="relative aspect-square w-full overflow-hidden">
+            {/* Previous image (animating out) */}
+            {isAnimating && (
+              <div
+                className={`absolute inset-0 z-10 transition-all duration-800 ease-in-out ${
+                  slideDirection === 'next' ? 'animate-slide-out-left' : 'animate-slide-out-right'
+                }`}
+              >
+                <Image
+                  src={(previousDesigner?.image as MediaType)?.url || '/placeholder.svg'}
+                  alt={(previousDesigner?.image as MediaType)?.alt || ''}
+                  fill
+                  className="object-cover grayscale"
+                />
+              </div>
+            )}
+
+            {/* Current image (animating in) */}
+            <div
+              className={`absolute inset-0 z-0 ${
+                isAnimating
+                  ? slideDirection === 'next'
+                    ? 'animate-slide-in-right'
+                    : 'animate-slide-in-left'
+                  : ''
               }`}
-              resource={activeDesigner?.image}
-            />
+            >
+              <Image
+                src={(currentDesigner?.image as MediaType)?.url || '/placeholder.svg'}
+                alt={(currentDesigner?.image as MediaType)?.alt || ''}
+                fill
+                className="object-cover grayscale"
+                priority
+              />
+            </div>
           </div>
 
           {/* Arrow button positioned on right center */}
-          <div className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-10">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full border border-gray-200 p-6 bg-white hover:bg-gray-50"
-              onClick={handleNext}
-              disabled={isAnimating}
-            >
-              <ArrowRight className="h-6 w-6" />
-              <span className="sr-only">Next designers</span>
-            </Button>
+          <div className="absolute top-1/2 left-full transform -translate-y-1/2 z-10">
+            <NextButton onClick={handleNext} />
           </div>
         </div>
 
@@ -149,7 +182,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
 
           <p className="text-lg text-gray-700 mb-12">Visionary creators crafting timeless pieces</p>
 
-          {/* Thumbnails carousel with fade effect */}
+          {/* Thumbnails carousel with enhanced animation */}
           <div className="flex flex-col gap-8">
             <div className="flex gap-4 overflow-hidden">
               {visibleDesigners.map((designer, index) => {
@@ -157,15 +190,21 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
                 return (
                   <div
                     key={designer.id}
-                    className={`relative aspect-square w-32 cursor-pointer transition-all duration-500 ease-in-out ${
-                      isAnimating
-                        ? 'opacity-0 transform -translate-x-4'
-                        : 'opacity-100 transform translate-x-0'
+                    className={`relative aspect-[1/1.2] w-32 cursor-pointer ${
+                      isAnimating ? 'animate-thumbnail-exit' : 'animate-thumbnail-enter'
                     } ${activeDesignerIndex === designerIndex ? 'ring-2 ring-black' : 'opacity-90 hover:opacity-100'}`}
-                    style={{ transitionDelay: `${index * 100}ms` }}
+                    style={{
+                      animationDelay: `${index * 100}ms`,
+                      animationFillMode: 'both',
+                    }}
                     onClick={() => handleThumbnailClick(designerIndex)}
                   >
-                    <Media fill imgClassName={`object-cover z-0`} resource={designer.image} />
+                    <Image
+                      src={(designer.image as MediaType).url || '/placeholder.svg'}
+                      alt={(designer.image as MediaType).alt || ''}
+                      fill
+                      className="object-cover grayscale"
+                    />
                   </div>
                 )
               })}

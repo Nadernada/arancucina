@@ -29,5 +29,10 @@ export const TabsBlock: Block = {
         },
       ],
     },
+    {
+      name: 'padding',
+      type: 'checkbox',
+      defaultValue: true,
+    },
   ],
 }

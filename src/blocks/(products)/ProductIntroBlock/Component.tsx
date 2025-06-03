@@ -21,15 +21,15 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
     >
       <div
         className={cn('flex flex-col items-start gap-8 w-1/2', {
-          'w-full gap-4': finishes || dimensions,
+          'w-full gap-4': finishes || dimensions || (!materials && !store && !catalogue),
         })}
       >
         {type && <p className="text-[#A59D95] text-base uppercase">{type}</p>}
         <h1 className="font-bodoni text-black text-3xl">{title}</h1>
         <p
           className={cn('font-thin text-gray-500', {
-            'w-full': finishes || dimensions,
-            'w-2/3': !(finishes || dimensions),
+            'w-full': finishes || dimensions || (!materials && !store && !catalogue),
+            'w-2/3': !(finishes || dimensions || (!materials && !store && !catalogue)),
           })}
         >
           {description}
@@ -67,7 +67,7 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
         )}
         {dimensions && (
           <a href="#dimensions" className="flex flex-row justify-center items-center gap-4">
-            <Image src="/images/icons/dimensioni.png" alt="catalogo" width={40} height={40} />
+            <Image src="/images/icons/size.png" alt="catalogo" width={40} height={40} />
             <p>Dimensions</p>
           </a>
         )}

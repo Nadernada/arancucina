@@ -14,7 +14,7 @@ export const HeadingWIthText: React.FC<HeadingWithTextType> = ({
         <span className="text-[#A59D95]">{brownText || ''}</span>
       </h2>
 
-      <p className="text-[#A59D95] text-lg max-w-[50%] w-1/3">{description || ''}</p>
+      <p className="text-[#696969] text-lg max-w-[50%] w-1/3">{description || ''}</p>
     </div>
   )
 }

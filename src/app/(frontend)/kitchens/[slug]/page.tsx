@@ -70,7 +70,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <article
-      className={cn('pt-16', {
+      className={cn('pt-16 mt-16', {
         'pt-0': title,
       })}
     >
@@ -80,8 +80,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <div className="w-full heading-bg flex flex-col justify-center items-center containe px-16 py-6 gap-4">
-        <h1 className="text-3xl font-bodoni font-normal text-white">{title}</h1>
+      <div className="w-full heading-bg flex flex-col justify-center items-center containe px-16 py-8 gap-4 textured">
+        <h1 className="text-5xl font-bodoni font-normal text-white">{title}</h1>
       </div>
       <div className="flex flex-col gap-16 justify-center items-center my-16">
         {products.map((product) => {
@@ -90,12 +90,19 @@ export default async function Page({ params: paramsPromise }: Args) {
             <Link
               href={`/products/${product.slug}`}
               key={product.id}
-              className="w-full h-[50vh] relative flex flex-col justify-end items-end container p-0"
+              className="w-full h-[50vh] relative flex flex-col justify-end items-end container p-0 group"
             >
-              <div className="w-[90%] bg-black px-16 py-8 translate-y-5 flex justify-start items-center z-[2]">
+              <div className="w-[90%] bg-black px-16 py-6 translate-y-5 flex justify-start items-center z-[4]">
                 <h2 className="text-3xl font-bodoni font-normal text-white">{product.title}</h2>
               </div>
-              <Media imgClassName="object-cover z-0" resource={product.mainImage} fill />
+              <div className="absolute inset-0 w-full h-full overflow-hidden">
+                <Media
+                  imgClassName="object-cover z-0 group-hover:scale-110 transition-all duration-300"
+                  resource={product.mainImage}
+                  fill
+                />
+              </div>
+              <div className="inset-0 absolute z-[3] bg-black opacity-0 group-hover:opacity-30 transition-all duration-300 m-3"></div>
             </Link>
           )
         })}

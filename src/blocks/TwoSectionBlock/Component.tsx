@@ -7,7 +7,7 @@ import { TextWithHeading } from '@/components/TextWithHeading'
 import { MediaBox } from '@/components/MediaBox'
 
 export const TwoSectionBlock: React.FC<TwoSectionBlockProps> = (props) => {
-  const { columns, clearBg } = props
+  const { columns, container } = props
 
   const colsSpanClasses = {
     full: '12',
@@ -22,12 +22,13 @@ export const TwoSectionBlock: React.FC<TwoSectionBlockProps> = (props) => {
   }
 
   return (
-    <div className="container p-0">
+    <div className={cn('p-0', { 'container ': !container })}>
       <div
         className={cn(
           'grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16 rounded-md p-4 md:p-10 lg:p-16 transition-all duration-300',
           {
             'py-16': Object.keys(columns?.[0] || {}).includes('media'),
+            '!px-0': container,
           },
         )}
       >
@@ -40,7 +41,8 @@ export const TwoSectionBlock: React.FC<TwoSectionBlockProps> = (props) => {
               <Col
                 {...props}
                 className={cn(`col-span-4 lg:col-span-${colsSpanClasses[props.size!]}`, {
-                  'md:col-span-2': props.size !== 'full',
+                  'md:col-span-2': props.size !== 'full' && !container,
+                  'lg:col-span-6 justify-center': props.shortHeading,
                 })}
                 key={index}
               />

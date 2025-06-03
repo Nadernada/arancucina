@@ -35,6 +35,10 @@ export const CarouselBlock: Block = {
           label: 'kitchens',
           value: 'kitchens',
         },
+        {
+          label: 'complements',
+          value: 'complements',
+        },
       ],
     },
   ],

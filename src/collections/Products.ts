@@ -35,6 +35,9 @@ import { HeadingWithText } from '@/blocks/(products)/HeadingWithText/config'
 import { TabsBlock } from '@/blocks/(products)/TabsBlock/config'
 import { ParallaxBlock } from '@/blocks/(products)/parallaxBlock/config'
 import { TextWithCarousel } from '@/blocks/(products)/TextWithCarousel/config'
+import { DimensionsBlock } from '@/blocks/(products)/DimensionsBlock/config'
+import { CatalogueBlock } from '@/blocks/(products)/CatalogueBlock/config'
+import { TextImageColBlock } from '@/blocks/(products)/TextImageColBlock/config'
 
 export const Products: CollectionConfig<'products'> = {
   slug: 'products',
@@ -117,6 +120,9 @@ export const Products: CollectionConfig<'products'> = {
                 TabsBlock,
                 ParallaxBlock,
                 TextWithCarousel,
+                DimensionsBlock,
+                CatalogueBlock,
+                TextImageColBlock,
               ],
               required: true,
               admin: {
