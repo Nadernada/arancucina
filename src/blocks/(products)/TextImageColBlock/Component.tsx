@@ -7,18 +7,20 @@ export const TextImageColBlock: React.FC<TextImageColBlockType> = ({ columns }) 
   return (
     <div className="bg-[#e6e6e6]">
       <div
-        className={cn('container p-16 grid grid-cols-2 justify-end', {
+        className={cn('container p-8 lg:p-16 grid grid-cols-1 lg:grid-cols-2 justify-end', {
           'items-end gap-10': columns?.[1]?.videoAspect,
           'gap-x-8 gap-y-0': columns?.[1]?.closeGrid,
+          'pb-24': columns?.length && columns.length > 2,
         })}
       >
         {columns?.map((column, index) => (
           <div
             className={cn('flex flex-col gap-8 justify-center mx-auto', {
-              'mt-14': (index % 2 !== 0 && !column.videoAspect) || !columns?.[1]?.closeGrid,
-              'w-2/3': !column.videoAspect,
-              'w-[90%]': column.videoAspect,
+              'lg:mt-14': (index % 2 !== 0 && !column.videoAspect) || !columns?.[1]?.closeGrid,
+              'lg:w-2/3': !column.videoAspect,
+              'lg:w-[90%]': column.videoAspect,
               'w-full': columns?.[1]?.closeGrid,
+              'lg:translate-y-10': index % 2 !== 0 && columns?.[1]?.closeGrid,
             })}
             key={column.id || index}
           >

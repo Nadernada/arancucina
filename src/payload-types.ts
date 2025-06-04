@@ -1082,6 +1082,8 @@ export interface Carousel {
   images?:
     | {
         image?: (string | null) | Media;
+        slideQuote?: string | null;
+        slideQuoteDesc?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1089,8 +1091,10 @@ export interface Carousel {
   buttonLink?: string | null;
   arrows?: boolean | null;
   dots?: boolean | null;
+  portrait?: boolean | null;
   slidesPerView?: number | null;
   slideQuote?: string | null;
+  slideQuoteDesc?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Carousel';
@@ -1138,6 +1142,8 @@ export interface ParallaxBlock {
   image?: (string | null) | Media;
   whiteText?: string | null;
   brownText?: string | null;
+  size?: ('small' | 'medium' | 'large') | null;
+  noParallax?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'ParallaxBlock';
@@ -2196,14 +2202,18 @@ export interface CarouselSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        slideQuote?: T;
+        slideQuoteDesc?: T;
         id?: T;
       };
   button?: T;
   buttonLink?: T;
   arrows?: T;
   dots?: T;
+  portrait?: T;
   slidesPerView?: T;
   slideQuote?: T;
+  slideQuoteDesc?: T;
   id?: T;
   blockName?: T;
 }
@@ -2248,6 +2258,8 @@ export interface ParallaxBlockSelect<T extends boolean = true> {
   image?: T;
   whiteText?: T;
   brownText?: T;
+  size?: T;
+  noParallax?: T;
   id?: T;
   blockName?: T;
 }

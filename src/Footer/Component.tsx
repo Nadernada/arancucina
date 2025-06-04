@@ -14,7 +14,7 @@ export async function Footer() {
 
   return (
     <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white flex flex-col justify-center items-center py-8">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
+      <div className="container py-8 gap-8 flex flex-col lg:flex-row md:justify-between">
         <div className="flex flex-col justify-center items-start gap-6">
           <Link className="flex items-center" href="/">
             <Logo className="w-[19rem] h-20 max-w-none aspect-auto" />
@@ -42,7 +42,7 @@ export async function Footer() {
 
               <div className="flex flex-col justify-center items-start gap-1">
                 <p className="text-white">ARAN World srl Unipersonale</p>
-                <p className="text-white">
+                <p className="text-white max-w-[20rem]">
                   RABAT-Agdal, 457, Avenue Hassan II, Résidence Mariam, Magasin n° 11
                 </p>
                 <p className="text-white">01444880676</p>

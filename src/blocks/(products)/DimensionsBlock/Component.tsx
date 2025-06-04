@@ -17,7 +17,7 @@ export const DimensionsBlock: React.FC<DimensionsBlockType> = ({
   }
 
   return (
-    <div className="container flex flex-row gap-4 justify-between items-center">
+    <div className="container flex flex-col lg:flex-row gap-4 justify-between items-center">
       <div className="flex flex-col gap-6 justify-start items-start flex-1">
         <h1 className="text-3xl font-bodoni font-normal text-white">FINISHES</h1>
         {finishes &&
@@ -52,7 +52,7 @@ export const DimensionsBlock: React.FC<DimensionsBlockType> = ({
           </p>
         )}
       </div>
-      <div className="flex flex-col gap-6 justify-start items-start bg-[#d1d3d4] p-6 w-1/3">
+      <div className="flex flex-col gap-6 justify-start items-start bg-[#d1d3d4] p-6 lg:w-1/3">
         <h1 className="text-3xl font-bodoni font-normal text-black uppercase">Dimensions</h1>
         <button onClick={() => {}} className="flex items-center gap-2 text-sm font-bold">
           <p>See the legend</p>

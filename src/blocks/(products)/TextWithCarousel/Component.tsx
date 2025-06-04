@@ -9,7 +9,7 @@ export const TextWithCarousel: React.FC<TextWithCarouselType> = ({
   reversed,
 }) => {
   return (
-    <div className="container grid grid-cols-2">
+    <div className="container grid grid-cols-1 gap-y-6 lg:grid-cols-2">
       {blackText && brownText && !reversed && (
         <div className="flex flex-col gap-4 justify-center">
           <h2 className="text-black font-bodoni uppercase text-4xl ">
@@ -18,7 +18,7 @@ export const TextWithCarousel: React.FC<TextWithCarouselType> = ({
             <span className="text-[#A59D95]">{brownText || ''}</span>
           </h2>
 
-          <p className=" text-lg">{description || ''}</p>
+          <p className=" text-lg text-[#696969] font-thin">{description || ''}</p>
         </div>
       )}
       <div className="w-full">

@@ -134,15 +134,12 @@ export const FormBlock: React.FC<
           enableGutter={false}
         />
       )}
-      <div className="p-4 lg:p-6 flex flex-row gap-8 justify-center items-start">
-        <div className="mb-8 lg:mb-12 bg-gray-200 p-6 w-fit !h-[fit-content] gap-6 flex flex-col">
+      <div className="p-4 lg:p-6 flex flex-col md:flex-row gap-8 justify-center items-start">
+        <div className="mb-8 lg:mb-12 bg-gray-200 w-full md:w-fit p-6 !h-[fit-content] gap-6 flex flex-col">
           <h2 className="text-2xl font-bold font-bodoni">ARAN World</h2>
           <p className="text-gray-600">
-            Zona Industriale – Casoli
-            <br />
-            64032 Atri (TE)
-            <br />
-            VAT number 01444880676
+            RABAT-Agdal, 457, <br /> Avenue Hassan II,
+            <br /> Résidence Mariam, Magasin n° 11
           </p>
           <p className="text-gray-600">
             phone: +39 085 87941

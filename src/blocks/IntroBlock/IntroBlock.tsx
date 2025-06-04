@@ -2,9 +2,9 @@ import Image from 'next/image'
 
 export const IntroBlock = () => {
   return (
-    <div className="container flex flex-col gap-20 p-4 md:p-10 lg:p-16 items-center justify-center relative">
-      <div className="flex flex-row items-center justify-between w-full gap-7 relative">
-        <p className="w-full lg:w-2/5 mx-0 z-10">
+    <div className="container flex flex-col gap-20 p-4 md:p-10 xl:p-16 items-center justify-center relative">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full gap-7 relative">
+        <p className="w-full lg:w-1/2 xl:w-2/5 mx-0 z-10 order-2 md:order-1">
           Every day, ARAN Cucine creates elegant and functional spaces shaped around the pace of
           everyday life. The kitchen becomes the heart of the home, a place where relationships grow
           and memories take form. Design and tradition; authenticity, talent and passion. These are
@@ -12,7 +12,7 @@ export const IntroBlock = () => {
           not simply built. They are crafted with intention, shaped by Italian expertise, and made
           to bring meaning to the way people live.
         </p>
-        <h1 className="font-medium text-h1 leading-[3rem] uppercase font-bodoni w-full lg:w-2/5 mx-0 z-10">
+        <h1 className="font-medium text-h1 leading-[3rem] uppercase font-bodoni w-full lg:w-2/5 xl:w-2/5 mx-0 z-10 order-1 md:order-2">
           <span className="text-maroon">ITALIAN BEAUTY:</span> ROOTED IN DESIGN, GUIDED BY RESEARCH,
           INSPIRED BY PASSION.
         </h1>
@@ -25,11 +25,11 @@ export const IntroBlock = () => {
         height={500}
         className="absolute bottom-0 right-0 z-0 w-screen"
       />
-      <div className="flex flex-row items-center justify-between w-full gap-7 relative">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full gap-7 relative">
         <h1 className="font-medium text-h1 leading-[3rem] uppercase font-bodoni w-full lg:w-2/5 mx-0 z-10">
           STEP INTO ARAN WORLD: DISCOVER OUR COLLECTIONS
         </h1>
-        <p className="w-full lg:w-2/5 mx-0 z-10">
+        <p className="w-full lg:w-1/2 xl:w-2/5 mx-0 z-10">
           The exclusive ability to reinterpret spaces is revealed through a unique and dedicated
           style, to furnish every environment with extreme sartorial care and attention to every
           detail, from the kitchen to the living area, including the wardrobes in the sleeping area

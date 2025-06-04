@@ -44,7 +44,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText 
             fill
             imgClassName="-z-10 object-cover"
             htmlElement="div"
-            className="w-full h-full"
+            className="w-full h-full object-cover absolute inset-0"
             priority
             resource={media}
           />

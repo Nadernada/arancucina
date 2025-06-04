@@ -14,7 +14,7 @@ export const DesignerBlock: React.FC<DesignerBlockType> = ({
 }) => {
   return (
     <div
-      className={cn('w-full container p-24 grid grid-cols-2 gap-12', {
+      className={cn('w-full container p-6 xl:p-24 grid grid-cols-1 lg:grid-cols-2 gap-12', {
         'bg-black': theme === 'dark',
       })}
     >
@@ -36,7 +36,7 @@ export const DesignerBlock: React.FC<DesignerBlockType> = ({
         </div>
       </div>
       <div className="flex w-full h-full relative">
-        <div className="absolute -top-[60%] left-4 w-[506px] aspect-square overflow-hidden">
+        <div className="xl:absolute -top-[60%] left-4  xl:w-[506px] aspect-square overflow-hidden">
           <Image
             src={(image as Media).url as string}
             alt="designer"

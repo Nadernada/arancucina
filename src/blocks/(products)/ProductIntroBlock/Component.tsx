@@ -15,12 +15,15 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
 }) => {
   return (
     <div
-      className={cn('flex flex-row justify-between items-center gap-10 p-16 bg-white container', {
-        'flex-col items-start': finishes || dimensions,
-      })}
+      className={cn(
+        'flex flex-col lg:flex-row justify-between items-center gap-10 p-4 bg-white container',
+        {
+          'flex-col items-start': finishes || dimensions,
+        },
+      )}
     >
       <div
-        className={cn('flex flex-col items-start gap-8 w-1/2', {
+        className={cn('flex flex-col items-start gap-8 w-full lg:w-1/2', {
           'w-full gap-4': finishes || dimensions || (!materials && !store && !catalogue),
         })}
       >
@@ -29,7 +32,7 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
         <p
           className={cn('font-thin text-gray-500', {
             'w-full': finishes || dimensions || (!materials && !store && !catalogue),
-            'w-2/3': !(finishes || dimensions || (!materials && !store && !catalogue)),
+            'lg:w-2/3': !(finishes || dimensions || (!materials && !store && !catalogue)),
           })}
         >
           {description}
@@ -37,11 +40,11 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
       </div>
 
       <div
-        className={cn('flex flex-col gap-6 justify-center items-start w-1/2', {
+        className={cn('flex flex-col gap-6 justify-center items-start w-full lg:w-1/2', {
           'flex-row justify-between': finishes || dimensions,
         })}
       >
-        {catalogue && (
+        {/* {catalogue && (
           <button className="flex flex-row justify-center items-center gap-4">
             <Image src="/images/icons/scarica-catalogo.png" alt="catalogo" width={40} height={40} />
             <p>Download the catalogue</p>
@@ -52,7 +55,7 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
             <Image src="/images/icons/punto-vendita.png" alt="catalogo" width={40} height={40} />
             <p>Store</p>
           </button>
-        )}
+        )} */}
         {materials && (
           <a href="#materials" className="flex flex-row justify-center items-center gap-4">
             <Image src="/images/icons/materiali.png" alt="catalogo" width={40} height={40} />
@@ -60,13 +63,13 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
           </a>
         )}
         {finishes && (
-          <a href="#finishes" className="flex flex-row justify-center items-center gap-4">
+          <a href="#materials" className="flex flex-row justify-center items-center gap-4">
             <Image src="/images/icons/materiali.png" alt="catalogo" width={40} height={40} />
             <p>Finishes</p>
           </a>
         )}
         {dimensions && (
-          <a href="#dimensions" className="flex flex-row justify-center items-center gap-4">
+          <a href="#materials" className="flex flex-row justify-center items-center gap-4">
             <Image src="/images/icons/size.png" alt="catalogo" width={40} height={40} />
             <p>Dimensions</p>
           </a>

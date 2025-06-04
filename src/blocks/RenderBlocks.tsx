@@ -77,7 +77,7 @@ export const RenderBlocks: React.FC<{
               return (
                 <div
                   className={cn({
-                    'my-16': blockType !== 'HeadingBlock',
+                    'my-8 xl:my-16': blockType !== 'HeadingBlock',
                     'mt-16': blockType === 'HeadingBlock',
                     'my-0':
                       blockType === 'MediaBGBlock' ||

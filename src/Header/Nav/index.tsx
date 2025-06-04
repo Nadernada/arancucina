@@ -24,7 +24,12 @@ export const HeaderNav: React.FC<{
     <div className="z-30">
       {' '}
       {/* Add relative here */}
-      <button className="absolute top-12 right-24 z-40" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className={cn('absolute top-12 right-8 md:right-24 z-40', {
+          '!right-[5.5rem] md:right-24': isOpen,
+        })}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {isOpen ? (
           <X
             width={24}
@@ -38,8 +43,8 @@ export const HeaderNav: React.FC<{
             width={24}
             height={24}
             className={cn('w-5 text-primary transition-all duration-300', {
-              'invert ': !isScrolled && !isOpen,
-              'invert-0': isScrolled || isOpen,
+              'invert ': (!isScrolled && !isOpen && path === '/') || path === '/',
+              'invert-0': isScrolled || isOpen || path !== '/',
             })}
           />
         )}
@@ -118,7 +123,7 @@ export const HeaderNav: React.FC<{
                                         imgClassName="object-cover "
                                         fill
                                       />
-                                      <div className="fixed inset-0 bg-black/50 z-20 h-full w-full" />
+                                      <div className="absolute inset-0 bg-black/30 z-20 h-full w-full" />
                                       <p className="text-2xl font-bodoni text-white z-50">
                                         {type.link.label}
                                       </p>

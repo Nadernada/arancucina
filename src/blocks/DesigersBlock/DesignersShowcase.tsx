@@ -113,9 +113,9 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
   }, [startIndex, activeDesignerIndex])
 
   return (
-    <div className="container mx-auto px-4 py-12 md:py-24">
+    <div className="container mx-auto px-4 py-12 xl:py-24">
       <div className="mb-16">
-        <h1 className="text-4xl md:text-6xl font-light tracking-tight uppercase font-bodoni">
+        <h1 className="text-4xl xl:text-6xl font-light tracking-tight uppercase font-bodoni">
           The Names That Make
           <br />
           The Difference
@@ -123,10 +123,10 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
         <div className="w-24 h-0.5 bg-black mt-6"></div>
       </div>
 
-      <div className="flex flex-col lg:flex-row justify-between items-start gap-40 md:gap-16">
+      <div className="flex flex-col lg:flex-row justify-between items-start gap-10 md:gap-16">
         {/* Featured designer image with enhanced animation */}
         <div className="w-full lg:w-1/2 relative">
-          <div className="relative aspect-square w-full overflow-hidden">
+          <div className="relative !aspect-video lg:aspect-square w-11/12 lg:w-full overflow-hidden">
             {/* Previous image (animating out) */}
             {isAnimating && (
               <div
@@ -164,14 +164,17 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
           </div>
 
           {/* Arrow button positioned on right center */}
-          <div className="absolute top-1/2 left-full transform -translate-y-1/2 z-10">
+          <div className="absolute top-1/2 right-[2%] lg:left-full transform -translate-y-1/2 z-10">
             <NextButton onClick={handleNext} />
           </div>
         </div>
 
         {/* Designer info and carousel */}
         <div className="w-full lg:w-1/2 flex flex-col">
-          <div className="flex justify-end mb-8">
+          <div className="flex justify-between lg:justify-end lg:mb-8">
+            <p className="text-lg text-gray-700 mb-12 block lg:hidden">
+              Visionary creators crafting timeless pieces
+            </p>
             <Button
               variant="outline"
               className="rounded-full px-8 py-6 border-gray-300 hover:bg-transparent hover:text-black"
@@ -180,7 +183,9 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
             </Button>
           </div>
 
-          <p className="text-lg text-gray-700 mb-12">Visionary creators crafting timeless pieces</p>
+          <p className="text-lg text-gray-700 mb-12 hidden lg:block">
+            Visionary creators crafting timeless pieces
+          </p>
 
           {/* Thumbnails carousel with enhanced animation */}
           <div className="flex flex-col gap-8">
@@ -212,7 +217,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
           </div>
 
           {/* Description */}
-          <div className="mt-16">
+          <div className="mt-10 md:mt-16">
             <p className="text-base text-gray-700 leading-relaxed">
               Through close collaborations with internationally acclaimed designers, ARAN Cucine
               develops projects where refined aesthetics serve real-world function. These

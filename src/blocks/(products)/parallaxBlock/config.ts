@@ -17,5 +17,29 @@ export const ParallaxBlock: Block = {
       name: 'brownText',
       type: 'text',
     },
+    {
+      name: 'size',
+      type: 'select',
+      defaultValue: 'large',
+      options: [
+        {
+          label: 'Small',
+          value: 'small',
+        },
+        {
+          label: 'Medium',
+          value: 'medium',
+        },
+        {
+          label: 'Large',
+          value: 'large',
+        },
+      ],
+    },
+    {
+      name: 'noParallax',
+      type: 'checkbox',
+      defaultValue: false,
+    },
   ],
 }

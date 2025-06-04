@@ -17,19 +17,19 @@ export const TabsBlock: React.FC<TabsBlockType> = ({ category, padding }) => {
   const [activeTab, setActiveTab] = useState(category?.[0]?.id)
 
   return (
-    <div className={cn('', { 'container ': padding, 'w-full': !padding })}>
+    <div className={cn('', { 'container ': padding, 'w-full': !padding })} id="materials">
       <Tabs
         defaultValue={category && category[0] && category[0].id ? category[0].id : undefined}
         value={activeTab!}
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <TabsList className="w-full flex justify-start gap-3 border-b rounded-none h-auto p-0 bg-transparent">
+        <TabsList className="w-full flex flex-wrap justify-start gap-3 border-b rounded-none h-auto p-0 bg-transparent">
           {category?.map((tab) => (
             <TabsTrigger
               key={tab.id}
               value={tab.id!}
-              className={`py-4 px-2 text-sm font-medium w-fit rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:shadow-none ${
+              className={`py-4 px-2 text-sm font-medium max-w-[150px] lg:max-w-none text-wrap w-fit rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:shadow-none ${
                 activeTab === tab.id ? 'border-black' : 'border-transparent'
               }`}
             >

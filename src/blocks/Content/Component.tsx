@@ -24,7 +24,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   }
   return (
     <div className=" mt-16">
-      <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16">
+      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-12 gap-y-8 gap-x-16">
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {

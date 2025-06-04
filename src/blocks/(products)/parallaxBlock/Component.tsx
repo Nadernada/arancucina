@@ -1,12 +1,17 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import Image from 'next/image'
-import type { ParallaxBlock as ParallaxBlockType } from '@/payload-types'
-import { Media } from '@/components/Media'
+import { useScroll, useTransform } from 'framer-motion'
+import type { Media, ParallaxBlock as ParallaxBlockType } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 
-export const ParallaxBlock: React.FC<ParallaxBlockType> = ({ image, whiteText, brownText }) => {
+export const ParallaxBlock: React.FC<ParallaxBlockType> = ({
+  image,
+  whiteText,
+  brownText,
+  size,
+  noParallax,
+}) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -15,11 +20,18 @@ export const ParallaxBlock: React.FC<ParallaxBlockType> = ({ image, whiteText, b
 
   // Create different transform values for each layer
   const y1 = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const y2 = useTransform(scrollYProgress, [0, 1], ['0%', '60%'])
+  const y2 = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const y3 = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
   return (
-    <section ref={ref} className="relative h-[50vh] w-full overflow-hidden">
+    <section
+      ref={ref}
+      className={cn('relative w-full overflow-hidden', {
+        ' h-[70vh]': size === 'large',
+        ' h-[30vh]': size === 'small',
+        ' h-[40vh]': size === 'medium',
+      })}
+    >
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         <div className=" text-center px-4">
           <h2 className="text-white font-bodoni uppercase text-4xl">
@@ -36,9 +48,17 @@ export const ParallaxBlock: React.FC<ParallaxBlockType> = ({ image, whiteText, b
       </motion.div> */}
 
       {/* Middle layer - moves at medium speed */}
-      <motion.div className="absolute inset-0 z-1" style={{ y: y2 }}>
-        <Media imgClassName="object-cover z-0" resource={image} fill />
-      </motion.div>
+      <div
+        className={cn('absolute inset-0 bg-cover bg-no-repeat  z-0', {
+          'bg-fixed ': !noParallax,
+        })}
+        style={{
+          backgroundImage: `url('${(image as Media)?.url}')`,
+          height: '100%',
+          width: '100%',
+          backgroundPosition: 'center',
+        }}
+      />
 
       {/* Foreground layer - moves fastest */}
       {/* <motion.div className="absolute inset-0 z-2" style={{ y: y3 }}>

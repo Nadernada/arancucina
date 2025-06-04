@@ -21,6 +21,14 @@ export const Carousel: Block = {
           type: 'upload',
           relationTo: 'media',
         },
+        {
+          name: 'slideQuote',
+          type: 'text',
+        },
+        {
+          name: 'slideQuoteDesc',
+          type: 'text',
+        },
       ],
     },
     {
@@ -42,12 +50,21 @@ export const Carousel: Block = {
       defaultValue: false,
     },
     {
+      name: 'portrait',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
       name: 'slidesPerView',
       type: 'number',
       defaultValue: 3,
     },
     {
       name: 'slideQuote',
+      type: 'text',
+    },
+    {
+      name: 'slideQuoteDesc',
       type: 'text',
     },
   ],

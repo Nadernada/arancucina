@@ -4,10 +4,13 @@ import Image from 'next/image'
 
 export const OurValuesBlock: React.FC<OurValuesBlockType> = ({ content }) => {
   return (
-    <div className="container flex flex-row justify-between px-16 gap-10 items-center">
+    <div className="container flex flex-col md:flex-row justify-between px-8 md:px-16 gap-10 items-center">
       {content?.map((item, i) => {
         return (
-          <div key={i} className="flex flex-row justify-between items-center gap-12 w-[50%]">
+          <div
+            key={i}
+            className="flex flex-row justify-between items-center gap-12 w-full md:w-[50%]"
+          >
             <div className="flex flex-col justify-center items-start gap-6">
               <h1 className="text-3xl font-bodoni uppercase">{item.title}</h1>
               <p>{item.text}</p>

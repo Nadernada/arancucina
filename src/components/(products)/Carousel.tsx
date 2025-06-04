@@ -5,7 +5,7 @@ import type React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
+import { Maximize2, Scale, ScalingIcon, X } from 'lucide-react'
 import { Media } from '@/payload-types'
 
 export default function Carousel({
@@ -25,7 +25,8 @@ export default function Carousel({
   const [startTranslateX, setStartTranslateX] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
 
-  const itemsPerView = 1
+  const itemsPerView = 1.3
+
   const maxTranslateX = 0
   const minTranslateX = carouselImages
     ? -((carouselImages.length - itemsPerView) * (100 / itemsPerView))
@@ -170,7 +171,7 @@ export default function Carousel({
               {carouselImages?.map((image, index) => (
                 <div
                   key={image.id}
-                  className="flex-shrink-0 w-[calc(100%-10rem)] relative group cursor-pointer"
+                  className="flex-shrink-0 lg:w-[calc(100%-10rem)] w-full relative group cursor-pointer"
                   onClick={() => handleImageClick(index)}
                 >
                   <div className="relative aspect-square overflow-hidden">
@@ -182,7 +183,9 @@ export default function Carousel({
                       draggable={false}
                     />
                     {/* Dark overlay on hover */}
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
+                      <Maximize2 color="white" />
+                    </div>
                   </div>
                 </div>
               ))}

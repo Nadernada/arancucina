@@ -5,9 +5,9 @@ export const HeadingBlock: React.FC<HeadingBlockType> = ({ title, text, size }) 
   return (
     <div
       className={cn(
-        'w-full heading-bg flex flex-col justify-center items-center containe px-16 py-8 gap-4 mt-16',
+        'w-full heading-bg flex flex-col justify-center items-center containe px-16 py-8 gap-4  mt-[6.4rem]',
         {
-          'pb-32': size === 'loose',
+          'pt-32': size === 'loose',
         },
       )}
     >

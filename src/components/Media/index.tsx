@@ -20,7 +20,7 @@ export const Media: React.FC<Props> = (props) => {
         : {})}
     >
       {isVideo ? (
-        <VideoMedia videoClassName="w-full h-full" {...props} />
+        <VideoMedia videoClassName="w-full h-full object-cover" {...props} />
       ) : (
         <ImageMedia {...props} />
       )}

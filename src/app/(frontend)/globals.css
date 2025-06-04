@@ -191,7 +191,7 @@ html[data-theme='light'] {
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
   appearance: none;
-  background-color: gray;
+  background-color: transparent;
   touch-action: manipulation;
   display: inline-flex;
   text-decoration: none;
@@ -209,12 +209,12 @@ html[data-theme='light'] {
   box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
   display: flex;
   align-items: center;
-  background-color: gray;
+  background-color: transparent;
   content: '';
 }
 .embla__dot--selected:after {
   box-shadow: inset 0 0 0 0.2rem var(--text-body);
-  background-color: black;
+  background-color: #a59d95 !important;
   width: 100%;
   height: 100%;
 }
@@ -322,4 +322,32 @@ html[data-theme='light'] {
 
 .animate-thumbnail-enter {
   animation: thumbnailEnter 600ms ease-in-out forwards;
+}
+
+@media screen and (max-width: 1096px) {
+  .text-h1 {
+    font-size: 2rem;
+    line-height: 2.2rem;
+  }
+
+  .embla__slide__number {
+    box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+    font-size: 4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20rem;
+    user-select: none;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  :root {
+    --slide-size: 80%;
+  }
+
+  .embla__slide {
+    flex: 0 0 80%;
+  }
 }

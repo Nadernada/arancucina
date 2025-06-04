@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { EmblaOptionsType } from 'embla-carousel'
 import { PrevButton, NextButton, usePrevNextButtons } from './EmblaCarouselArrows'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -9,11 +9,15 @@ import { Media } from '../Media'
 import { Media as MediaType } from '@/payload-types'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
+import { Maximize2, X, ZoomIn } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/utilities/ui'
 
 type SlideType = {
   image?: string | MediaType | null | undefined
   id?: string | null | undefined
+  slideQuote?: string | null | undefined
+  slideQuoteDesc?: string | null | undefined
 }
 
 type PropType = {
@@ -23,14 +27,19 @@ type PropType = {
   arrows?: boolean | null | undefined
   slidesPerView?: number | null | undefined
   slideQuote?: string | null | undefined
+  slideQuoteDesc?: string | null | undefined
+  portrait?: boolean | null | undefined
 }
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options, dots, arrows, slidesPerView, slideQuote } = props
+  const { slides, options, dots, arrows, slidesPerView, slideQuote, slideQuoteDesc, portrait } =
+    props
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxImage, setLightboxImage] = useState<number | null>(null)
   const [hasDragged, setHasDragged] = useState(false)
+  const pathname = usePathname()
+  const [slidesPerViewIn, setSlidesPerViewIn] = useState(slidesPerView)
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 
@@ -61,19 +70,42 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       setLightboxImage((lightboxImage - 1 + slides.length) % slides.length)
     }
   }
+
   return (
     <section className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides?.map((slide, index) => (
             <div
-              className="embla__slide relative aspect-square group cursor-pointer"
-              style={{ flex: `0 0 ${slidesPerView ? 100 / slidesPerView : 100}%` }}
+              className={cn('embla__slide relative aspect-square group cursor-pointer', {
+                '!aspect-[1/1.3]': pathname.includes('chair'),
+              })}
+              style={{ flex: `0 0 ${slidesPerViewIn ? 100 / slidesPerViewIn : 100}%` }}
               key={index}
               onClick={() => handleImageClick(index)}
             >
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 z-10 transition-opacity duration-500 flex justify-center items-center">
-                <p className="text-white text-sm">{slideQuote}</p>
+                {!slide.slideQuote ? (
+                  <p className="text-white text-lg font-medium">
+                    {arrows ? (
+                      <Maximize2 color="white" />
+                    ) : slideQuote ? (
+                      <div className="flex flex-col gap-2 justify-center items-center text-center p-6">
+                        <p className="text-white text-lg font-medium">{slideQuote}</p>
+                        <p className="text-white text-sm font-normal">{slideQuoteDesc}</p>
+                      </div>
+                    ) : (
+                      <ZoomIn color="white" />
+                    )}
+                  </p>
+                ) : slide.slideQuote ? (
+                  <div className="flex flex-col gap-2 justify-center items-center text-center p-6">
+                    <p className="text-white text-lg font-medium">{slide.slideQuote}</p>
+                    <p className="text-white text-sm font-normal">{slide.slideQuoteDesc}</p>
+                  </div>
+                ) : (
+                  <ZoomIn color="white" />
+                )}
               </div>
 
               <Media resource={slide.image} imgClassName="object-cover z-0" fill />

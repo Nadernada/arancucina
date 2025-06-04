@@ -124,7 +124,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     <div className="embla">
       <div className="embla__controls">
         <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+          <PrevButton
+            onClick={onPrevButtonClick}
+            disabled={prevBtnDisabled}
+            className="hidden sm:flex"
+          />
           <div className="embla__viewport" ref={emblaRef}>
             <div className="embla__container">
               {slides.map((item, index) => (
@@ -134,7 +138,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                   href={(item as { slug: string }).slug}
                 >
                   <div className="embla__slide__number relative overflow-hidden rounded-none">
-                    <h4 className="absolute bottom-2 left-6 text-white font-bodoni text-[2rem] uppercase font-normal z-20">
+                    <h4 className="absolute bottom-2 left-2 md:left-6 text-white font-bodoni text-[1rem] md:text-[1.5rem] lg:text-[2rem] uppercase font-normal z-20">
                       {(item as { models: { title: string } }).models.title}
                     </h4>
 
@@ -157,6 +161,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             </div>
           </div>
 
+          <NextButton
+            onClick={onNextButtonClick}
+            disabled={nextBtnDisabled}
+            className="hidden sm:flex"
+          />
+        </div>
+
+        {/* Mobile navigation buttons */}
+        <div className="flex justify-center gap-4 mt-4 sm:hidden">
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
         <div className="embla__dots gap-2 mt-4">
@@ -164,7 +178,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             <DotButton
               key={index}
               onClick={() => onDotButtonClick(index)}
-              className={'embla__dot'.concat(
+              className={'embla__dot !bg-gray-300'.concat(
                 index === selectedIndex ? ' embla__dot--selected' : '',
               )}
             />

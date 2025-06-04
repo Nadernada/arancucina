@@ -24,7 +24,10 @@ export const ProductsList: React.FC<ProductsListType> = ({ products }) => {
                 fill
               />
             </div>
-            <div className="inset-0 absolute z-[3] bg-black opacity-0 group-hover:opacity-30 transition-all duration-300 m-3"></div>
+            <div className="inset-0 absolute z-[3] bg-black opacity-0 group-hover:opacity-30 transition-all duration-300 m-3 flex justify-center items-center"></div>
+            <p className="text-white text-2xl font-bold w-full h-full inset-0 absolute z-[3] flex justify-center items-center uppercase opacity-0 group-hover:opacity-100 transition-all duration-300">
+              {product.title}
+            </p>
           </Link>
         )
       })}

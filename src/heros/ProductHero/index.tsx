@@ -63,7 +63,7 @@ export const ProductHero: React.FC<Page['hero']> = ({ images = [], richText }) =
             <div className="absolute inset-0 w-full h-full bg-black/20 z-10" />
             {item.image && <Media resource={item.image} imgClassName="z-0 object-cover" fill />}
             {richText && (
-              <div className="absolute bottom-1/2 left-48  text-white p-4 max-w-md z-20">
+              <div className="absolute bottom-[30%] lg:bottom-1/2 left-0 xl:left-48  text-white p-4 max-w-md z-20">
                 <RichText className="text-2xl" data={richText} enableGutter={false} />
               </div>
             )}
@@ -72,20 +72,20 @@ export const ProductHero: React.FC<Page['hero']> = ({ images = [], richText }) =
       </div>
 
       {/* Navigation arrows */}
-      <div className="absolute bottom-8 -left-96 flex items-center justify-center container">
+      <div className="absolute bottom-8 left-0 xl:-left-96 flex xl:items-center xl:justify-center container">
         <button
           onClick={goToPrevious}
           className="z-20 bg-black/80 text-white p-3 rounded-none hover:bg-black/90 transition-colors"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="h-16 w-16" />
+          <ChevronLeft className="xl:h-16 xl:w-16 h-10 w-10" />
         </button>
         <button
           onClick={goToNext}
           className=" z-20 bg-black/80 text-white p-3 rounded-none hover:bg-black/90 transition-colors"
           aria-label="Next slide"
         >
-          <ChevronRight className="h-16 w-16" />
+          <ChevronRight className="xl:h-16 xl:w-16 h-10 w-10" />
         </button>
       </div>
     </div>

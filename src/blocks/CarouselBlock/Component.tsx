@@ -17,7 +17,7 @@ export const CarouselBlock = async ({ relationTo }: { relationTo: CollectionSlug
   const content = fetchedDocs.docs
 
   return (
-    <div className="container p-4 md:p-10 lg:p-16">
+    <div className="container p-4 md:p-10 xl:p-16">
       <EmblaCarousel slides={content} options={options} />
     </div>
   )
