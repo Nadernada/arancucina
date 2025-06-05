@@ -7,14 +7,17 @@ export const HeadingWithText: Block = {
     {
       name: 'blackText',
       type: 'text',
+      localized: true,
     },
     {
       name: 'brownText',
       type: 'text',
+      localized: true,
     },
     {
       name: 'description',
       type: 'text',
+      localized: true,
     },
   ],
 }

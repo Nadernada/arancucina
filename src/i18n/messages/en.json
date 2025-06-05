@@ -1,0 +1,50 @@
+{
+  "date-published": "Date Published",
+  "author": "Author",
+  "page-not-found": "This page could not be found.",
+  "go-home": "Go home",
+  "loading": "Loading, please wait...",
+  "posts": "Posts",
+  "post": "Post",
+  "showing": "Showing",
+  "of": "of",
+  "search": "Search",
+  "dashboard": "Dashboard",
+  "previous": "Previous",
+  "next": "Next",
+  "more-pages": "More pages",
+  "WhoWeAreBlock": {
+    "company-description": "The company is now a solid and well-known reality. Attention to design, constant research on the quality of materials, study, comparison, always accepting the challenge, reliability and functionality are all included in each project and this makes each product an innovative result that combines the tradition of Made in Italy with technology.",
+    "company-history": "The creation and development of the ARAN Cucine brand is really fascinating. The protagonist Renzo Rastelli is a self-made man. He started taking care of kitchens when he was 20 years old and everybody knew him as a footballer. Rastelli founded Newform Cucine and his vocation was from the beginning to conquer the foreign market. His career progression was extremely fast: in the early 2000s Rastelli took a leading role in the ARAN Cucine business and the success came from the brilliant idea of the flatpack which makes it possible to load in one single container more than 40 kitchens. Right from the beginning, whilst mantaining the production department in the area of Zona Industriale di Atri, in Abruzzi, the attitude was global.",
+    "story": "STORY",
+    "a-fascinating-history": "A fascinating ",
+    "the-excellence": "The excellence ",
+    "of-italian-know-how": "of italian Know-How",
+    "know-how-text": "High-quality craftsmanship school, avant-garde technology and innovative design are the symbol of a tradition that has always belonged to our land. Italian know-how is a precious talent, an inheritance, that we cultivate everyday with extreme passion. For us, designing a kitchen is not just manufacturing furniture but creating a space where people can experience unique motions with their family and friends.",
+    "our-strength": "Our Strength",
+    "is-human-value": "is human value",
+    "strength-text": "The set of values of ARAN Cucine brand is solid, well structured and recognisable. Attention o the real needs of families from all over the world, first of all. A strong inclination toward empathy to identify with customers and their needs through a varied, attractive and colourful offer. Company vision consist in dreaming that ARAN kitchen might bring moments of happiness in world homes, giving experience of conviviality in an ambience close to your needs and even more beautiful."
+  },
+  "Designers": {
+    "the-names-that-make": "The Names That Make",
+    "the-difference": "The Difference",
+    "description": "Through close collaborations with internationally acclaimed designers, ARAN Cucine develops projects where refined aesthetics serve real-world function. These partnerships allow us to stay ahead of global trends and to define new ones. They consolidate our role as a reference point in the world of design.",
+    "visionary": "Visionary creators crafting timeless pieces",
+    "about-designers": "About Designers"
+  },
+  "IntroBlock": {
+    "text": "Every day, ARAN Cucine creates elegant and functional spaces shaped around the pace of everyday life. The kitchen becomes the heart of the home, a place where relationships grow and memories take form. Design and tradition; authenticity, talent and passion. These are the values behind the quality that defines ARAN Cucine around the world. Our kitchens are not simply built. They are crafted with intention, shaped by Italian expertise, and made to bring meaning to the way people live.",
+    "rooted-in-design": "ROOTED IN DESIGN, GUIDED BY RESEARCH, INSPIRED BY PASSION.",
+    "italian-beauty": "ITALIAN BEAUTY",
+    "text2": "The exclusive ability to reinterpret spaces is revealed through a unique and dedicated style, to furnish every environment with extreme sartorial care and attention to every detail, from the kitchen to the living area, including the wardrobes in the sleeping area and the bathroom accessories. A perfect research that makes each product a real element of interior architecture.",
+    "step-into": "STEP INTO ARAN WORLD",
+    "discover-our-collections": "DISCOVER OUR COLLECTIONS"
+  },
+  "environment": {
+    "energy": "Energy",
+    "self-sufficiency": "self-sufficiency",
+    "text1": "Four electric power generating facilities guarantee an installed capacity equal to 2,17 MW of peak.",
+    "text2": "lectricity production is about 2500 MWh/year."
+  },
+  "materials": "Materials"
+}

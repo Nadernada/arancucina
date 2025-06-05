@@ -2,6 +2,7 @@ import React from 'react'
 import type { ProductIntroBlock as ProductIntroBlockType } from '@/payload-types'
 import Image from 'next/image'
 import { cn } from '@/utilities/ui'
+import { useTranslations } from 'next-intl'
 
 export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
   title,
@@ -13,6 +14,8 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
   finishes,
   type,
 }) => {
+  const t = useTranslations()
+
   return (
     <div
       className={cn(
@@ -59,7 +62,7 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
         {materials && (
           <a href="#materials" className="flex flex-row justify-center items-center gap-4">
             <Image src="/images/icons/materiali.png" alt="catalogo" width={40} height={40} />
-            <p>Materials</p>
+            <p>{t('materials')}</p>
           </a>
         )}
         {finishes && (

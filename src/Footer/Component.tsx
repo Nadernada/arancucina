@@ -1,14 +1,15 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import React from 'react'
 
 import type { Footer } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import Image from 'next/image'
 import { Media } from '@/payload-types'
+import { TypedLocale } from 'payload'
 
-export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+export async function Footer({ locale }: { locale: TypedLocale }) {
+  const footerData: Footer = await getCachedGlobal('footer', 1, locale)()
 
   const navItems = footerData?.navItems || []
 
@@ -91,7 +92,7 @@ export async function Footer() {
           </div>
         </div>
       </div>
-      <p className="text-white">
+      <p className="text-white p-4">
         © {new Date().getFullYear()} Copyright, all rights reserved. Powered by Hyperbold
       </p>
     </footer>

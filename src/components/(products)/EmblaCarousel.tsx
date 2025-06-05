@@ -5,10 +5,11 @@ import { EmblaOptionsType } from 'embla-carousel'
 import { PrevButton, NextButton, usePrevNextButtons } from './EmblaCarouselArrows'
 import useEmblaCarousel from 'embla-carousel-react'
 import { DotButton, useDotButton } from '../EmblaCarouselDotButton'
-import { Media } from '../Media'
+import { useMediaQuery } from 'react-responsive'
 import { Media as MediaType } from '@/payload-types'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { Media } from '@/components/Media'
 import { Maximize2, X, ZoomIn } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/utilities/ui'
@@ -40,6 +41,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   const [hasDragged, setHasDragged] = useState(false)
   const pathname = usePathname()
   const [slidesPerViewIn, setSlidesPerViewIn] = useState(slidesPerView)
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 })
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+
+  useEffect(() => {
+    if (isTablet) {
+      setSlidesPerViewIn(2)
+    } else if (isMobile) {
+      setSlidesPerViewIn(1)
+    }
+  }, [isTablet, isMobile])
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 

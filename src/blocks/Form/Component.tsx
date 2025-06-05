@@ -19,7 +19,7 @@ import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
 import { cn } from '@/utilities/ui'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 
 export type FormBlockType = {
   blockName?: string
@@ -146,7 +146,7 @@ export const FormBlock: React.FC<
             <br />
             fax: +39 085 8794315
           </p>
-          <div className="flex flex-row gap-3 justify-between items-center">
+          <div className="flex flex-row gap-3 justify-start items-center">
             {Socials?.map(({ link, url }, i) => {
               return (
                 <Link href={link?.url || ''} key={i}>
@@ -181,7 +181,8 @@ export const FormBlock: React.FC<
                       return (
                         <div
                           className={cn('mb-1 last:mb-0', {
-                            'col-span-1': (formFromProps.fields?.[index]?.width ?? 100) < 50,
+                            'col-span-2 lg:col-span-1':
+                              (formFromProps.fields?.[index]?.width ?? 100) < 50,
                             'col-span-2': (formFromProps.fields?.[index]?.width ?? 100) >= 50,
                           })}
                           key={index}
@@ -216,26 +217,7 @@ const Socials = [
   {
     link: {
       type: 'custom',
-      url: 'https://www.instagram.com',
-      label: 'instagram',
-    },
-    url: '/api/media/file/download%20(1).svg',
-    thumbnailURL: null,
-  },
-
-  {
-    link: {
-      type: 'custom',
-      url: 'https://www.instagram.com',
-      label: 'instagram',
-    },
-    url: '/api/media/file/download%20(3).svg',
-    thumbnailURL: null,
-  },
-  {
-    link: {
-      type: 'custom',
-      url: 'https://www.instagram.com',
+      url: 'https://www.instagram.com/arancucinema/p/DJ2RGm3tc6j/',
       label: 'instagram',
     },
     url: '/api/media/file/download%20(4).svg',
@@ -245,31 +227,10 @@ const Socials = [
   {
     link: {
       type: 'custom',
-      url: 'https://www.instagram.com',
+      url: 'https://www.facebook.com/people/ARANcucine-Maroc/61575494607302/',
       label: 'instagram',
     },
     url: '/api/media/file/download%20(5).svg',
-    thumbnailURL: null,
-  },
-
-  {
-    link: {
-      type: 'custom',
-      url: 'https://www.instagram.com',
-      label: 'instagram',
-    },
-    url: '/api/media/file/download.svg',
-    thumbnailURL: null,
-  },
-
-  {
-    link: {
-      type: 'custom',
-      url: 'https://www.instagram.com',
-      label: 'instagram',
-    },
-
-    url: '/api/media/file/download%20(1).svg',
     thumbnailURL: null,
   },
 ]

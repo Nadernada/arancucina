@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
-import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
+import { getPayload, TypedLocale, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
@@ -13,46 +13,58 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { cn } from '@/utilities/ui'
+import { Locale } from '@/i18n/routing'
 
 export async function generateStaticParams() {
+  const locales = ['en', 'fr'] as const
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
+  
+  // Get pages for each locale
+  const allParams = await Promise.all(
+    locales.map(async (locale) => {
+      const pages = await payload.find({
+        collection: 'pages',
+        draft: false,
+        limit: 1000,
+        overrideAccess: false,
+        pagination: false,
+        select: {
+          slug: true,
+        },
+        locale,
+      })
 
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return pages.docs
+        ?.filter((doc: { slug?: string | null }) => {
+          return doc.slug && doc.slug !== 'home'
+        })
+        .map(({ slug }) => ({
+          params: { locale, slug: slug! }
+        }))
     })
-    .map(({ slug }) => {
-      return { slug }
-    })
+  )
 
-  return params
+  // Flatten the array of arrays
+  return allParams.flat()
 }
 
 type Args = {
   params: Promise<{
     slug?: string
+    locale: TypedLocale
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home' } = await paramsPromise
+  const { slug = 'home', locale } = await paramsPromise
   const url = '/' + slug
 
   let page: RequiredDataFromCollectionSlug<'pages'> | null
 
   page = await queryPageBySlug({
     slug,
+    locale,
   })
 
   // Remove this code once your website is seeded
@@ -67,12 +79,19 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { hero: rawHero, layout } = page
 
   // Transform hero to match expected type
-  const hero = rawHero ? {
-    ...rawHero,
-    type: (rawHero.type || 'none') as 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'productHero',
-    images: rawHero.images?.map(({ image }) => ({ image })) || undefined,
-    richText: rawHero.richText || undefined
-  } : { type: 'none' as const }
+  const hero = rawHero
+    ? {
+        ...rawHero,
+        type: (rawHero.type || 'none') as
+          | 'none'
+          | 'highImpact'
+          | 'mediumImpact'
+          | 'lowImpact'
+          | 'productHero',
+        images: rawHero.images?.map(({ image }) => ({ image })) || undefined,
+        richText: rawHero.richText || undefined,
+      }
+    : { type: 'none' as const }
 
   return (
     <article
@@ -87,21 +106,22 @@ export default async function Page({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
+      <RenderBlocks blocks={layout} locale={locale} />
     </article>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+  const { slug = 'home', locale } = await paramsPromise
   const page = await queryPageBySlug({
     slug,
+    locale,
   })
 
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPageBySlug = cache(async ({ slug, locale }: { slug: string; locale: TypedLocale }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -117,6 +137,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
         equals: slug,
       },
     },
+    locale,
   })
 
   return result.docs?.[0] || null

@@ -7,7 +7,7 @@ import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrow
 import { DotButton, useDotButton } from './EmblaCarouselDotButton'
 import Image from 'next/image'
 import { DataFromCollectionSlug, CollectionSlug } from 'payload'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 
 const TWEEN_FACTOR_BASE = 0.52
 

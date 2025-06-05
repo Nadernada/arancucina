@@ -48,7 +48,7 @@
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
 
-    --font-bodoni: 'Bodoni Moda', serif;
+    --font-bodoni: 'Bodoni Moda SC', serif;
 
     --h1: 2.5rem;
     --h2: 1.563rem;
@@ -84,7 +84,7 @@
   font-weight: 900;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..9000&display=swap');
 
 body {
   font-family: 'Avenir', sans-serif;
@@ -231,6 +231,10 @@ html[data-theme='light'] {
 
 .font-bodoni {
   font-weight: 400;
+}
+
+.text-maroon {
+  color: #a59d95;
 }
 
 /* Custom animations for the designer showcase */

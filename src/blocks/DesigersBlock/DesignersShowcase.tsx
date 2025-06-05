@@ -2,12 +2,10 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Pause, Play } from 'lucide-react'
 import type { Designer } from '@/payload-types'
-import { Media } from '@/components/Media'
-import { cn } from '@/utilities/ui'
 import type { Media as MediaType } from '@/payload-types'
 import { NextButton } from '@/components/EmblaCarouselArrows'
+import { useTranslations } from 'next-intl'
 
 const AUTOPLAY_INTERVAL = 5000
 const ANIMATION_DURATION = 800
@@ -19,6 +17,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
   const [slideDirection, setSlideDirection] = useState('next') // "next" or "prev"
   const [autoplay, setAutoplay] = useState(true)
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const t = useTranslations('Designers')
 
   // Track previous and current designers for animation
   const [previousDesigner, setPreviousDesigner] = useState(designers[0])
@@ -116,9 +115,9 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
     <div className="container mx-auto px-4 py-12 xl:py-24">
       <div className="mb-16">
         <h1 className="text-4xl xl:text-6xl font-light tracking-tight uppercase font-bodoni">
-          The Names That Make
+          {t('the-names-that-make')}
           <br />
-          The Difference
+          {t('the-difference')}
         </h1>
         <div className="w-24 h-0.5 bg-black mt-6"></div>
       </div>
@@ -138,7 +137,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
                   src={(previousDesigner?.image as MediaType)?.url || '/placeholder.svg'}
                   alt={(previousDesigner?.image as MediaType)?.alt || ''}
                   fill
-                  className="object-cover grayscale"
+                  className="object-cover grayscale lg:aspect-square aspect-video"
                 />
               </div>
             )}
@@ -157,7 +156,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
                 src={(currentDesigner?.image as MediaType)?.url || '/placeholder.svg'}
                 alt={(currentDesigner?.image as MediaType)?.alt || ''}
                 fill
-                className="object-cover grayscale"
+                className="object-cover grayscale lg:aspect-square aspect-video"
                 priority
               />
             </div>
@@ -179,13 +178,11 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
               variant="outline"
               className="rounded-full px-8 py-6 border-gray-300 hover:bg-transparent hover:text-black"
             >
-              About Designers
+              {t('about-designers')}
             </Button>
           </div>
 
-          <p className="text-lg text-gray-700 mb-12 hidden lg:block">
-            Visionary creators crafting timeless pieces
-          </p>
+          <p className="text-lg text-gray-700 mb-12 hidden lg:block">{t('visionary')}</p>
 
           {/* Thumbnails carousel with enhanced animation */}
           <div className="flex flex-col gap-8">
@@ -218,12 +215,7 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
 
           {/* Description */}
           <div className="mt-10 md:mt-16">
-            <p className="text-base text-gray-700 leading-relaxed">
-              Through close collaborations with internationally acclaimed designers, ARAN Cucine
-              develops projects where refined aesthetics serve real-world function. These
-              partnerships allow us to stay ahead of global trends and to define new ones. They
-              consolidate our role as a reference point in the world of design.
-            </p>
+            <p className="text-base text-gray-700 leading-relaxed">{t('description')}</p>
           </div>
         </div>
       </div>

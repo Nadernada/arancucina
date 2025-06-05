@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ProductsList as ProductsListType } from '@/payload-types'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Media } from '@/components/Media'
 
 export const ProductsList: React.FC<ProductsListType> = ({ products }) => {

@@ -9,8 +9,9 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { Media } from '@/components/Media'
 import { X, ChevronDown, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
 import { Logo } from '@/components/Logo/Logo'
+import { Link } from '@/i18n/routing'
+import { LocaleSwitcher } from '../Component.client'
 
 export const MobileHeaderNav: React.FC<{
   data: HeaderType
@@ -94,29 +95,54 @@ export const MobileHeaderNav: React.FC<{
 
             return (
               <div key={i} className="border-b border-gray-100 last:border-b-0">
-                <div
-                  className="flex items-center justify-between py-4"
-                  onClick={() => (!hasSublinks ? setIsOpen(false) : toggleItem(i))}
-                >
-                  <CMSLink
-                    {...link}
-                    appearance="link"
-                    className={cn('text-lg font-medium flex-1', {
-                      'text-black': path === link.url,
-                      'text-gray-600': path !== link.url,
-                    })}
-                    onClick={() => !hasSublinks && setIsOpen(false)}
-                  />
-                  {hasSublinks && (
-                    <button onClick={() => toggleItem(i)} className="p-2 -mr-2">
-                      <ChevronDown
-                        className={cn('w-4 h-4 text-gray-400 transition-transform duration-200', {
-                          'rotate-180': isExpanded,
-                        })}
-                      />
-                    </button>
-                  )}
-                </div>
+                {hasSublinks ? (
+                  <div
+                    className="flex items-center justify-between py-4"
+                    onClick={() => toggleItem(i)}
+                  >
+                    <p
+                      className={cn('text-lg flex-1 font-medium', {
+                        'text-black font-medium': path === link.url,
+                        'text-gray-500': path !== link.url,
+                      })}
+                    >
+                      {link.label}
+                    </p>
+                    {hasSublinks && (
+                      <button onClick={() => toggleItem(i)} className="p-2 -mr-2">
+                        <ChevronDown
+                          className={cn('w-4 h-4 text-gray-400 transition-transform duration-200', {
+                            'rotate-180': isExpanded,
+                          })}
+                        />
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <div
+                    className="flex items-center justify-between py-4"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <CMSLink
+                      {...link}
+                      appearance="link"
+                      className={cn('text-lg font-medium flex-1', {
+                        'text-black': path === link.url,
+                        'text-gray-600': path !== link.url,
+                      })}
+                      onClick={() => !hasSublinks && setIsOpen(false)}
+                    />
+                    {hasSublinks && (
+                      <button onClick={() => toggleItem(i)} className="p-2 -mr-2">
+                        <ChevronDown
+                          className={cn('w-4 h-4 text-gray-400 transition-transform duration-200', {
+                            'rotate-180': isExpanded,
+                          })}
+                        />
+                      </button>
+                    )}
+                  </div>
+                )}
 
                 {hasSublinks && (
                   <div
@@ -133,32 +159,51 @@ export const MobileHeaderNav: React.FC<{
 
                         return (
                           <div key={j} className="mb-3 last:mb-0">
-                            <div
-                              className="flex items-center justify-between py-2"
-                              onClick={() => (!hasTypes ? setIsOpen(false) : toggleSubItem(subKey))}
-                            >
-                              <CMSLink
-                                {...subLink}
-                                appearance="link"
-                                className={cn('text-base flex-1', {
-                                  'text-black font-medium': path === subLink.url,
-                                  'text-gray-500': path !== subLink.url,
-                                })}
-                                onClick={() => !hasTypes && setIsOpen(false)}
-                              />
-                              {hasTypes && (
-                                <button onClick={() => toggleSubItem(subKey)} className="p-1 -mr-1">
-                                  <ChevronRight
-                                    className={cn(
-                                      'w-3 h-3 text-gray-400 transition-transform duration-200',
-                                      {
-                                        'rotate-90': isSubExpanded,
-                                      },
-                                    )}
-                                  />
-                                </button>
-                              )}
-                            </div>
+                            {hasTypes ? (
+                              <div
+                                className="flex items-center justify-between py-2"
+                                onClick={() => toggleSubItem(subKey)}
+                              >
+                                <p
+                                  className={cn('text-lg flex-1 font-medium', {
+                                    'text-black font-medium': path === subLink.url,
+                                    'text-gray-500': path !== subLink.url,
+                                  })}
+                                >
+                                  {subLink.label}
+                                </p>
+                                {hasTypes && (
+                                  <button
+                                    onClick={() => toggleSubItem(subKey)}
+                                    className="p-1 -mr-1"
+                                  >
+                                    <ChevronRight
+                                      className={cn(
+                                        'w-3 h-3 text-gray-400 transition-transform duration-200',
+                                        {
+                                          'rotate-90': isSubExpanded,
+                                        },
+                                      )}
+                                    />
+                                  </button>
+                                )}
+                              </div>
+                            ) : (
+                              <div
+                                className="flex items-center justify-between py-2"
+                                onClick={() => setIsOpen(false)}
+                              >
+                                <CMSLink
+                                  {...subLink}
+                                  appearance="link"
+                                  className={cn('text-lg flex-1 font-medium', {
+                                    'text-black font-medium': path === subLink.url,
+                                    'text-gray-500': path !== subLink.url,
+                                  })}
+                                  onClick={() => setIsOpen(false)}
+                                />
+                              </div>
+                            )}
 
                             {hasTypes && (
                               <div
@@ -169,7 +214,11 @@ export const MobileHeaderNav: React.FC<{
                               >
                                 <div className="pl-4 space-y-3">
                                   {types.map((type, k) => (
-                                    <div key={k} className="flex items-center space-x-3">
+                                    <Link
+                                      href={type.link.url!}
+                                      key={k}
+                                      className="flex items-center space-x-3"
+                                    >
                                       {type.image && (
                                         <div className="w-12 h-12 rounded-lg relative overflow-hidden flex-shrink-0">
                                           <Media
@@ -182,13 +231,13 @@ export const MobileHeaderNav: React.FC<{
                                       <CMSLink
                                         {...type.link}
                                         appearance="link"
-                                        className={cn('text-sm flex-1', {
+                                        className={cn('text-lg flex-1 font-medium', {
                                           'text-black font-medium': path === type.link.url,
                                           'text-gray-500': path !== type.link.url,
                                         })}
                                         onClick={() => setIsOpen(false)}
                                       />
-                                    </div>
+                                    </Link>
                                   ))}
                                 </div>
                               </div>
@@ -202,6 +251,9 @@ export const MobileHeaderNav: React.FC<{
               </div>
             )
           })}
+        </div>
+        <div className="px-6">
+          <LocaleSwitcher />
         </div>
       </nav>
     </div>

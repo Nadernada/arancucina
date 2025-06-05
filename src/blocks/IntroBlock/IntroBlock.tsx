@@ -1,20 +1,14 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 export const IntroBlock = () => {
+  const t = useTranslations('IntroBlock')
   return (
     <div className="container flex flex-col gap-20 p-4 md:p-10 xl:p-16 items-center justify-center relative">
       <div className="flex flex-col md:flex-row items-center justify-between w-full gap-7 relative">
-        <p className="w-full lg:w-1/2 xl:w-2/5 mx-0 z-10 order-2 md:order-1">
-          Every day, ARAN Cucine creates elegant and functional spaces shaped around the pace of
-          everyday life. The kitchen becomes the heart of the home, a place where relationships grow
-          and memories take form. Design and tradition; authenticity, talent and passion. These are
-          the values behind the quality that defines ARAN Cucine around the world. Our kitchens are
-          not simply built. They are crafted with intention, shaped by Italian expertise, and made
-          to bring meaning to the way people live.
-        </p>
+        <p className="w-full lg:w-1/2 xl:w-2/5 mx-0 z-10 order-2 md:order-1">{t('text')}</p>
         <h1 className="font-medium text-h1 leading-[3rem] uppercase font-bodoni w-full lg:w-2/5 xl:w-2/5 mx-0 z-10 order-1 md:order-2">
-          <span className="text-maroon">ITALIAN BEAUTY:</span> ROOTED IN DESIGN, GUIDED BY RESEARCH,
-          INSPIRED BY PASSION.
+          <span className="text-maroon">{t('italian-beauty')}</span>: {t('rooted-in-design')}
         </h1>
         <div className="h-[2px] w-40 bg-black absolute -bottom-10 right-0 z-10"></div>
       </div>
@@ -27,15 +21,9 @@ export const IntroBlock = () => {
       />
       <div className="flex flex-col md:flex-row items-center justify-between w-full gap-7 relative">
         <h1 className="font-medium text-h1 leading-[3rem] uppercase font-bodoni w-full lg:w-2/5 mx-0 z-10">
-          STEP INTO ARAN WORLD: DISCOVER OUR COLLECTIONS
+          {t('step-into')}: {t('discover-our-collections')}
         </h1>
-        <p className="w-full lg:w-1/2 xl:w-2/5 mx-0 z-10">
-          The exclusive ability to reinterpret spaces is revealed through a unique and dedicated
-          style, to furnish every environment with extreme sartorial care and attention to every
-          detail, from the kitchen to the living area, including the wardrobes in the sleeping area
-          and the bathroom accessories. A perfect research that makes each product a real element of
-          interior architecture.
-        </p>
+        <p className="w-full lg:w-1/2 xl:w-2/5 mx-0 z-10">{t('text2')}</p>
         <div className="h-[2px] w-40 bg-black absolute -bottom-5 -left-16 z-10"></div>
       </div>
       {/* <Image

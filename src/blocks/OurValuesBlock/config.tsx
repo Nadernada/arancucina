@@ -11,10 +11,12 @@ export const OurValuesBlock: Block = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
         },
         {
           name: 'text',
           type: 'text',
+          localized: true,
         },
         {
           name: 'image',

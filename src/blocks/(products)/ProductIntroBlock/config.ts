@@ -11,6 +11,7 @@ export const ProductIntroBlock: Block = {
     {
       name: 'description',
       type: 'text',
+      localized: true,
     },
     {
       name: 'catalogue',

@@ -7,7 +7,7 @@ import RichText from '@/components/RichText'
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { ArrowRight } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
@@ -34,21 +34,27 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
               <div
                 className={cn(`col-span-4 space-y-6 p-10 lg:col-span-${colsSpanClasses[size!]}`, {
                   'md:col-span-2': size !== 'full',
-                  'bg-black': index % 2 === 0 && pathname !== '/environment',
+                  'bg-black':
+                    index % 2 === 0 &&
+                    pathname !== '/fr/environment' &&
+                    pathname !== '/en/environment',
                 })}
                 key={index}
               >
                 {title && (
                   <h2
                     className={cn('text-2xl font-bold font-bodoni', {
-                      'text-white': index % 2 === 0 && pathname !== '/environment',
+                      'text-white':
+                        index % 2 === 0 &&
+                        pathname !== '/fr/environment' &&
+                        pathname !== '/en/environment',
                     })}
                   >
                     {title}
                   </h2>
                 )}
 
-                {pathname !== '/environment' && (
+                {pathname !== '/fr/environment' && pathname !== '/en/environment' && (
                   <div
                     className={cn('h-[3px] w-1/3 bg-black', {
                       'bg-white': index % 2 === 0,
@@ -60,8 +66,12 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
                     data={richText}
                     enableGutter={false}
                     className={cn('', {
-                      'text-white': index % 2 === 0 && pathname !== '/environment',
-                      'text-center text-[#a59d95] w-2/3': pathname === '/environment',
+                      'text-white':
+                        index % 2 === 0 &&
+                        pathname !== '/fr/environment' &&
+                        pathname !== '/en/environment',
+                      'text-center text-[#a59d95] lg:w-2/3':
+                        pathname === '/fr/environment' || pathname === '/en/environment',
                     })}
                   />
                 )}
@@ -70,7 +80,10 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
                   <Link
                     href={link?.url || ''}
                     className={cn('flex items-center gap-2', {
-                      'invert ': index % 2 === 0 && pathname !== '/environment',
+                      'invert ':
+                        index % 2 === 0 &&
+                        pathname !== '/fr/environment' &&
+                        pathname !== '/en/environment',
                     })}
                   >
                     {link?.label || ''}

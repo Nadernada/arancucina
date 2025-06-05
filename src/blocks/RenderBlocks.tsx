@@ -28,6 +28,7 @@ import { MapBlock } from './MapBlock/Component'
 import { DimensionsBlock } from './(products)/DimensionsBlock/Component'
 import { CatalogueBlock } from './(products)/CatalogueBlock/Component'
 import { TextImageColBlock } from './(products)/TextImageColBlock/Component'
+import { TypedLocale } from 'payload'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -59,8 +60,9 @@ const blockComponents = {
 
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][] | Product['layout'][0][]
+  locale: TypedLocale
 }> = (props) => {
-  const { blocks } = props
+  const { blocks, locale } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -88,7 +90,7 @@ export const RenderBlocks: React.FC<{
                   })}
                   key={index}
                 >
-                  <Block {...(block as any)} />
+                  <Block {...(block as any)} locale={locale} />
                 </div>
               )
             }

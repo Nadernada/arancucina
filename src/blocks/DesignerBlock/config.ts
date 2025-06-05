@@ -11,6 +11,7 @@ export const DesignerBlock: Block = {
     {
       name: 'description',
       type: 'text',
+      localized: true,
     },
     {
       name: 'image',
@@ -20,6 +21,7 @@ export const DesignerBlock: Block = {
     {
       name: 'ctaText',
       type: 'text',
+      localized: true,
     },
     {
       name: 'ctaLink',

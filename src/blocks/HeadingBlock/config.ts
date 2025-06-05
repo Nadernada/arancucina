@@ -7,6 +7,7 @@ export const HeadingBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
     },
     {
       name: 'size',
@@ -25,6 +26,7 @@ export const HeadingBlock: Block = {
     {
       name: 'text',
       type: 'text',
+      localized: true,
     },
   ],
 }

@@ -1,0 +1,50 @@
+{
+  "date-published": "Date de publication",
+  "author": "Auteur",
+  "page-not-found": "Cette page n'a pas été trouvée.",
+  "go-home": "Retour à l'accueil",
+  "loading": "Chargement, veuillez patienter...",
+  "posts": "Articles",
+  "post": "Article",
+  "showing": "Affichage",
+  "of": "de",
+  "search": "Rechercher",
+  "dashboard": "Tableau de bord",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "more-pages": "Plus de pages",
+  "WhoWeAreBlock": {
+    "company-description": "Chez ARAN Cucine, chaque produit est imaginé, développé et fabriqué en Italie. Ce choix dépasse la tradition : il reflète une volonté de préserver un savoir-faire local, de contrôler chaque étape de production et de garantir une qualité constante.",
+    "story": "D’UNE VISION",
+    "a-fascinating-history": "L’HISTOIRE ",
+    "company-history": "Renzo Rastelli, ancien footballeur, entre dans le monde de la cuisine à vingt ans avec une ambition claire : porter l’excellence italienne à l’international. Après avoir fondé Newform Cucine, il prend la tête d’ARAN au début des années 2000. Il y impose une idée simple et puissante : livrer les cuisines en colis plats, capables de contenir jusqu’à quarante unités par container. Dès le départ, la marque se projette à l’échelle mondiale tout en conservant sa production à Atri, dans les Abruzzes.",
+    "the-excellence": "L’EXCELLENCE ",
+    "of-italian-know-how": "DU SAVOIR-FAIRE",
+    "know-how-text": "Chez ARAN Cucine, le savoir-faire est une culture de la précision, transmise et perfectionnée au fil des générations. Chaque geste, chaque assemblage, chaque finition reflète une maîtrise qui ne laisse rien au hasard. Cette exigence guide toutes nos réalisations, depuis la sélection des matériaux jusqu’au moindre détail d’assemblage. C’est ainsi que nous garantissons la cohérence, la fiabilité et l’élégance de chaque projet, du premier trait jusqu’à la dernière touche.",
+    "our-strength": "NOTRE FORCE",
+    "is-human-value": "EST LA VALEUR HUMAINE",
+    "strength-text": "Chez ARAN Cucine, la relation humaine est au cœur de chaque projet. Écouter, comprendre, répondre aux vrais besoins de celles et ceux qui habitent nos espaces, c’est notre point de départ. Au-delà de la cuisine, nous imaginons des environnements de vie pensés pour le quotidien, pour les relations, pour les émotions que l’on partage. Notre vision est simple : concevoir des intérieurs qui rendent la vie plus belle, plus fluide, plus humaine"
+  },
+  "Designers": {
+    "the-names-that-make": "LES FIGURES QUI FONT",
+    "the-difference": "LA DIFFÉRENCE",
+    "description": "Les créateurs qui collaborent avec ARAN Cucine apportent une vision forte et singulière de l’espace. Leur style reconnaissable, associé à un savoir-faire inspiré de la haute couture, permet d’imaginer des intérieurs soignés dans les moindres détails. Leur contribution renforce l’identité d’ARAN comme référence internationale, où le style et la culture du design italien prennent forme avec caractère.",
+    "visionary": "Des créateurs visionnaires créant des pièces intemporelles",
+    "about-designers": "Sur les designers"
+  },
+  "IntroBlock": {
+    "text": "ARAN Cucine conçoit des cuisines et des intérieurs pensés pour celles et ceux qui vivent pleinement leur maison. Nous mettons notre expertise italienne au service d’un design élégant, fonctionnel et durable, en tenant compte des vrais besoins de nos clients partout dans le monde. Notre savoir-faire repose sur des valeurs claires : qualité artisanale, innovation, respect de l’environnement et sens du partage. Depuis nos origines en Italie, nous créons des lieux de vie où la beauté rencontre l’usage, où chaque projet reflète une vision précise et humaine de l’habitat.",
+    "rooted-in-design": "LA BEAUTÉ À L’ITALIENNE",
+    "italian-beauty": "DESIGN, RECHERCHE, PASSION",
+    "text2": "ARAN Cucine transforme les espaces du quotidien en lieux de vie cohérents, inspirants et durables. Chaque collection incarne une vision claire de l’habitat, pensée pour faire évoluer les espaces tout en révélant leur beauté. De la cuisine au salon, des rangements aux salles de bain, nos solutions traduisent un art du design qui valorise l’équilibre, la finesse et l’élégance.",
+    "step-into": "ENTREZ DANS L’UNIVERS ARAN",
+    "discover-our-collections": "Découvrez nos collections"
+  },
+  "environment": {
+    "energy": "NOUS CROYONS AU",
+    "self-sufficiency": "RESPECT DE L’ENVIRONNEMENT",
+    "text1": "L’attention et l’amour pour le monde dans lequel nous vivons sont des valeurs profondément enracinées, qui ont toujours inspiré tous nos processus et choix de production.",
+    "text2": ""
+  },
+  "materials": "Matériaux"
+}

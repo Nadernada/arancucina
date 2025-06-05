@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
-import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
+import { getPayload, TypedLocale, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
@@ -14,37 +14,47 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { cn } from '@/utilities/ui'
 import PageClient from './page.client'
 import { Media } from '@/components/Media'
-import Link from 'next/link'
+
 import { Product } from '@/payload-types'
+import { Link } from '@/i18n/routing'
 
 export async function generateStaticParams() {
+  const locales = ['en', 'fr'] as const
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'kitchens',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    depth: 3,
-    select: {
-      slug: true,
-    },
-  })
 
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
+  // Get pages for each locale
+  const allParams = await Promise.all(
+    locales.map(async (locale) => {
+      const pages = await payload.find({
+        collection: 'kitchens',
+        draft: false,
+        limit: 1000,
+        overrideAccess: false,
+        pagination: false,
+        select: {
+          slug: true,
+        },
+        locale,
+      })
 
-  return params
+      return pages.docs
+        ?.filter((doc: { slug?: string | null }) => {
+          return doc.slug && doc.slug !== 'home'
+        })
+        .map(({ slug }) => ({
+          params: { locale, slug: slug! },
+        }))
+    }),
+  )
+
+  // Flatten the array of arrays
+  return allParams.flat()
 }
 
 type Args = {
   params: Promise<{
     slug?: string
+    locale: TypedLocale
   }>
 }
 
