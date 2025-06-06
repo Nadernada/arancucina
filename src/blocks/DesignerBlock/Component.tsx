@@ -25,7 +25,7 @@ export const DesignerBlock: React.FC<DesignerBlockType> = ({
       >
         <h1 className={cn('text-5xl font-bodoni', { 'text-white': theme === 'dark' })}>{name}</h1>
         <p className="text-[#a2a2a2]">{description}</p>
-        <div className="flex flex-row gap-4 justify-start items-center hover:opacity-60 transition-colors duration-300 mt-4">
+        {/* <div className="flex flex-row gap-4 justify-start items-center hover:opacity-60 transition-colors duration-300 mt-4">
           <a
             href={ctaLink as string}
             className={cn('font-bold flex flex-row gap-2', { 'text-white': theme === 'dark' })}
@@ -33,7 +33,7 @@ export const DesignerBlock: React.FC<DesignerBlockType> = ({
             {ctaText}
             <ArrowRight />
           </a>
-        </div>
+        </div> */}
       </div>
       <div className="flex w-full h-full relative">
         <div className="xl:absolute -top-[60%] left-4  xl:w-[506px] aspect-square overflow-hidden">

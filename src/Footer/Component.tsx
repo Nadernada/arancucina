@@ -77,7 +77,10 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
         </div>
       </div>
       <p className="text-white p-4">
-        © {new Date().getFullYear()} Copyright, all rights reserved. Powered by Hyperbold
+        © {new Date().getFullYear()} Copyright, all rights reserved. Powered by{' '}
+        <Link href={'https://webloo.com/'} className="underline cursor-pointer hover:opacity-80">
+          Webloo
+        </Link>
       </p>
     </footer>
   )

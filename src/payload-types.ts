@@ -2166,8 +2166,8 @@ export interface ProductsSelect<T extends boolean = true> {
         HeadingWithText?: T | HeadingWithTextBlockSelect<T>;
         TabsBlock?: T | TabsBlockSelect;
         ParallaxBlock?: T | ParallaxBlockSelect;
-        TextWithCarousel?: T | TextWithCarouselSelect;
-        DimensionsBlock?: T | DimensionsBlockSelect;
+        TextWithCarousel?: T | TextWithCarouselSelect<T>;
+        DimensionsBlock?: T | DimensionsBlockSelect<T>;
         CatalogueBlock?: T | CatalogueBlockSelect;
         TextImageColBlock?: T | TextImageColBlockSelect<T>;
       };

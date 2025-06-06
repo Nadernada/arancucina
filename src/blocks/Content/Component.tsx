@@ -87,7 +87,6 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
                     })}
                   >
                     {link?.label || ''}
-                    <ArrowRight />
                   </Link>
                 )}
               </div>
