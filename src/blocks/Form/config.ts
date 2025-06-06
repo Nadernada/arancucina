@@ -18,6 +18,11 @@ export const FormBlock: Block = {
       required: true,
     },
     {
+      name: 'onlyForm',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
       name: 'enableIntro',
       type: 'checkbox',
       label: 'Enable Intro Content',
@@ -25,6 +30,7 @@ export const FormBlock: Block = {
     {
       name: 'introContent',
       type: 'richText',
+      localized: true,
       admin: {
         condition: (_, { enableIntro }) => Boolean(enableIntro),
       },

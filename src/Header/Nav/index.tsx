@@ -43,8 +43,11 @@ export const HeaderNav: React.FC<{
             width={24}
             height={24}
             className={cn('w-5 text-primary transition-all duration-300', {
-              'invert ': (!isScrolled && !isOpen && path === '/') || path === '/',
-              'invert-0': isScrolled || isOpen || path !== '/',
+              'invert ':
+                (!isScrolled && !isOpen && (path === '/en' || path === '/fr')) ||
+                path === '/en' ||
+                path === '/fr',
+              'invert-0': isScrolled || isOpen || (path !== '/en' && path !== '/fr'),
             })}
           />
         )}

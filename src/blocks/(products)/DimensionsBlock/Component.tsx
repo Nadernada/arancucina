@@ -54,10 +54,10 @@ export const DimensionsBlock: React.FC<DimensionsBlockType> = ({
       </div>
       <div className="flex flex-col gap-6 justify-start items-start bg-[#d1d3d4] p-6 lg:w-1/3">
         <h1 className="text-3xl font-bodoni font-normal text-black uppercase">Dimensions</h1>
-        <button onClick={() => {}} className="flex items-center gap-2 text-sm font-bold">
+        {/* <button onClick={() => {}} className="flex items-center gap-2 text-sm font-bold">
           <p>See the legend</p>
           <ArrowRight />
-        </button>
+        </button> */}
         <Media resource={dimensions} imgClassName="w-full" />
       </div>
     </div>

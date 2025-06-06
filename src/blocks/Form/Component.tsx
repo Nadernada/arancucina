@@ -29,6 +29,7 @@ export type FormBlockType = {
     fields: FormFieldBlock[]
   }
   introContent?: SerializedEditorState
+  onlyForm?: boolean
 }
 
 export const FormBlock: React.FC<
@@ -41,6 +42,7 @@ export const FormBlock: React.FC<
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
     introContent,
+    onlyForm,
   } = props
 
   const formMethods = useForm({
@@ -126,7 +128,11 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container">
+    <div
+      className={cn('container', {
+        'bg-image': onlyForm,
+      })}
+    >
       {enableIntro && introContent && !hasSubmitted && (
         <RichText
           className="mb-8 lg:mb-12 text-center font-bodoni"
@@ -135,34 +141,24 @@ export const FormBlock: React.FC<
         />
       )}
       <div className="p-4 lg:p-6 flex flex-col md:flex-row gap-8 justify-center items-start">
-        <div className="mb-8 lg:mb-12 bg-gray-200 w-full md:w-fit p-6 !h-[fit-content] gap-6 flex flex-col">
-          <h2 className="text-2xl font-bold font-bodoni">ARAN World</h2>
-          <p className="text-gray-600">
-            RABAT-Agdal, 457, <br /> Avenue Hassan II,
-            <br /> Résidence Mariam, Magasin n° 11
-          </p>
-          <p className="text-gray-600">
-            phone: +39 085 87941
-            <br />
-            fax: +39 085 8794315
-          </p>
-          <div className="flex flex-row gap-3 justify-start items-center">
-            {Socials?.map(({ link, url }, i) => {
-              return (
-                <Link href={link?.url || ''} key={i}>
-                  <Image src={url || ''} width={24} height={24} alt="" className="" />
-                </Link>
-              )
-            })}
+        {!onlyForm && (
+          <div className="mb-8 lg:mb-12 bg-gray-200 w-full md:w-fit p-6 !h-[fit-content] gap-6 flex flex-col">
+            <h2 className="text-2xl font-bold font-bodoni">ARAN Maroc</h2>
+            <p className="text-gray-600">
+              RABAT-Agdal, 457, <br /> Avenue Hassan II,
+              <br /> Résidence Mariam, Magasin n° 11
+            </p>
+            <div className="flex flex-row gap-3 justify-start items-center">
+              {Socials?.map(({ link, url }, i) => {
+                return (
+                  <Link href={link?.url || ''} key={i}>
+                    <Image src={url || ''} width={24} height={24} alt="" className="" />
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-
-          <Link
-            href="https://arancucine.whistlelink.com/"
-            className="bg-black text-white px-6 py-3 rounded-full text-center"
-          >
-            Whistleblowing
-          </Link>
-        </div>
+        )}
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
@@ -170,7 +166,11 @@ export const FormBlock: React.FC<
           {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
-            <form id={formID} onSubmit={handleSubmit(onSubmit)} className="!max-w-[35rem]">
+            <form
+              id={formID}
+              onSubmit={handleSubmit(onSubmit)}
+              className={cn('!max-w-[35rem]', onlyForm && '!w-full')}
+            >
               <div className="mb-4 last:mb-0 grid grid-cols-2 gap-4">
                 {formFromProps &&
                   formFromProps.fields &&

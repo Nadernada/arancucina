@@ -11,14 +11,17 @@ export const TextImageColBlock: Block = {
         {
           name: 'blackText',
           type: 'text',
+          localized: true,
         },
         {
           name: 'grayText',
           type: 'text',
+          localized: true,
         },
         {
           name: 'description',
           type: 'text',
+          localized: true,
         },
         {
           name: 'image',

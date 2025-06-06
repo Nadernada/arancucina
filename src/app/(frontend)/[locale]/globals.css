@@ -229,6 +229,13 @@ html[data-theme='light'] {
   background-repeat: no-repeat;
 }
 
+.bg-image {
+  background: url('/images/trama-2-3.png');
+  background-size: 183%;
+  background-position: left -72%;
+  background-repeat: no-repeat;
+}
+
 .font-bodoni {
   font-weight: 400;
 }

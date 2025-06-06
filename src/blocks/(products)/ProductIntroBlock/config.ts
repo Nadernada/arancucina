@@ -7,6 +7,7 @@ export const ProductIntroBlock: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
     },
     {
       name: 'description',
@@ -31,6 +32,7 @@ export const ProductIntroBlock: Block = {
     {
       name: 'type',
       type: 'text',
+      localized: true,
     },
     {
       name: 'dimensions',

@@ -2,6 +2,7 @@ import React, { ComponentPropsWithRef, useCallback, useEffect, useState } from '
 import { EmblaCarouselType } from 'embla-carousel'
 import LeftArrow from '@/../public/images/icons/left-arrow.svg'
 import RightArrow from '@/../public/images/icons/right-arrow.svg'
+import { cn } from '@/utilities/ui'
 
 type UsePrevNextButtonsType = {
   prevBtnDisabled: boolean
@@ -52,11 +53,14 @@ export const usePrevNextButtons = (
 type PropType = ComponentPropsWithRef<'button'>
 
 export const PrevButton: React.FC<PropType> = (props) => {
-  const { children, ...restProps } = props
+  const { children, className, ...restProps } = props
 
   return (
     <button
-      className="embla__button embla__button--prev border border-r-0 border-[#A59D95] rounded-l-full"
+      className={cn(
+        'embla__button embla__button--prev border border-r-0 border-[#A59D95] rounded-l-full',
+        className,
+      )}
       type="button"
       {...restProps}
     >
@@ -67,11 +71,14 @@ export const PrevButton: React.FC<PropType> = (props) => {
 }
 
 export const NextButton: React.FC<PropType> = (props) => {
-  const { children, ...restProps } = props
+  const { children, className, ...restProps } = props
 
   return (
     <button
-      className="embla__button embla__button--next border border-l-0 border-[#A59D95] rounded-r-full"
+      className={cn(
+        'embla__button embla__button--next border border-l-0 border-[#A59D95] rounded-r-full',
+        className,
+      )}
       type="button"
       {...restProps}
     >

@@ -24,10 +24,12 @@ export const Carousel: Block = {
         {
           name: 'slideQuote',
           type: 'text',
+          localized: true,
         },
         {
           name: 'slideQuoteDesc',
           type: 'text',
+          localized: true,
         },
       ],
     },
@@ -62,10 +64,12 @@ export const Carousel: Block = {
     {
       name: 'slideQuote',
       type: 'text',
+      localized: true,
     },
     {
       name: 'slideQuoteDesc',
       type: 'text',
+      localized: true,
     },
   ],
 }

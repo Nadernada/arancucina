@@ -81,7 +81,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
           isVisible || isDrawerOpen ? 'translate-y-0' : '-translate-y-full'
         } ${
-          (isScrolled && !isDrawerOpen) || pathname !== '/'
+          (isScrolled && !isDrawerOpen) || (pathname !== '/en' && pathname !== '/fr')
             ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200/20'
             : 'bg-transparent'
         }`}
@@ -94,13 +94,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 loading="eager"
                 priority="high"
                 className={cn(' !z-40', {
-                  invert: pathname !== '/' || isScrolled,
+                  invert: (pathname !== '/en' && pathname !== '/fr') || isScrolled,
                   'invert-0': isDrawerOpen,
                 })}
               />
             </Link>
 
-            <LocaleSwitcher />
+            <LocaleSwitcher isScrolled={isScrolled} isDrawerOpen={isDrawerOpen} />
             <HeaderNav
               data={data}
               isOpen={isDrawerOpen}
@@ -127,7 +127,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   )
 }
 
-export function LocaleSwitcher() {
+export function LocaleSwitcher({
+  isScrolled,
+  isDrawerOpen,
+}: {
+  isScrolled?: boolean
+  isDrawerOpen?: boolean
+}) {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
@@ -145,9 +151,14 @@ export function LocaleSwitcher() {
   }
 
   return (
-    <div className="md:absolute right-36 top-8">
+    <div className="md:absolute right-36 top-9">
       <Select onValueChange={onSelectChange} value={locale}>
-        <SelectTrigger className="w-auto text-sm bg-transparent gap-2 pl-0 md:pl-3 border-none">
+        <SelectTrigger
+          className="w-auto text-sm bg-transparent gap-2 pl-0 md:pl-3 border-none"
+          isScrolled={isScrolled!}
+          isNavOpen={isDrawerOpen!}
+          pathname={pathname}
+        >
           <SelectValue placeholder="Language" />
         </SelectTrigger>
         <SelectContent>
@@ -157,9 +168,16 @@ export function LocaleSwitcher() {
               <SelectItem
                 value={locale.code}
                 key={locale.code}
-                className="flex flex-row gap-3 items-center text-xs"
+                className={cn('flex flex-row gap-3 items-center text-xs', {})}
               >
-                <div className="flex flex-row gap-3 items-center text-xs">
+                <div
+                  className={cn(
+                    'flex flex-row gap-3 items-center text-xs',
+                    (isScrolled && !isDrawerOpen) || (pathname !== '/en' && pathname !== '/fr')
+                      ? 'text-black'
+                      : 'text-white',
+                  )}
+                >
                   <Image
                     src={`/images/icons/${locale.code}.png`}
                     width={24}

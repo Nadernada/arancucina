@@ -199,6 +199,8 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    title?: string | null;
+    subtitle?: string | null;
     media?: (string | null) | Media;
     images?:
       | {
@@ -568,6 +570,7 @@ export interface ArchiveBlock {
  */
 export interface FormBlock {
   form: string | Form;
+  onlyForm?: boolean | null;
   enableIntro?: boolean | null;
   introContent?: {
     root: {
@@ -1007,6 +1010,8 @@ export interface Product {
           id?: string | null;
         }[]
       | null;
+    title?: string | null;
+    subtitle?: string | null;
     media?: (string | null) | Media;
     images?:
       | {
@@ -1600,6 +1605,8 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        title?: T;
+        subtitle?: T;
         media?: T;
         images?:
           | T
@@ -1723,6 +1730,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  */
 export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
+  onlyForm?: T;
   enableIntro?: T;
   introContent?: T;
   id?: T;
@@ -2126,6 +2134,8 @@ export interface ProductsSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        title?: T;
+        subtitle?: T;
         media?: T;
         images?:
           | T
@@ -2156,8 +2166,8 @@ export interface ProductsSelect<T extends boolean = true> {
         HeadingWithText?: T | HeadingWithTextBlockSelect<T>;
         TabsBlock?: T | TabsBlockSelect;
         ParallaxBlock?: T | ParallaxBlockSelect;
-        TextWithCarousel?: T | TextWithCarouselSelect<T>;
-        DimensionsBlock?: T | DimensionsBlockSelect<T>;
+        TextWithCarousel?: T | TextWithCarouselSelect;
+        DimensionsBlock?: T | DimensionsBlockSelect;
         CatalogueBlock?: T | CatalogueBlockSelect;
         TextImageColBlock?: T | TextImageColBlockSelect<T>;
       };

@@ -45,6 +45,7 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
+      localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [
@@ -62,6 +63,16 @@ export const hero: Field = {
         maxRows: 2,
       },
     }),
+    {
+      name: 'title',
+      type: 'text',
+      localized: true,
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      localized: true,
+    },
     {
       name: 'media',
       type: 'upload',

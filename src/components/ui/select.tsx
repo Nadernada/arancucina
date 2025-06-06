@@ -12,8 +12,13 @@ const SelectGroup = SelectPrimitive.Group
 const SelectValue = SelectPrimitive.Value
 
 const SelectTrigger: React.FC<
-  { ref?: React.Ref<HTMLButtonElement> } & React.ComponentProps<typeof SelectPrimitive.Trigger>
-> = ({ children, className, ref, ...props }) => (
+  { ref?: React.Ref<HTMLButtonElement> } & React.ComponentProps<typeof SelectPrimitive.Trigger> & {
+      isScrolled?: boolean
+      isNavOpen?: boolean
+      pathname?: string
+      isForm?: boolean
+    }
+> = ({ children, className, ref, isScrolled, isNavOpen, pathname, isForm, ...props }) => (
   <SelectPrimitive.Trigger
     className={cn(
       'flex h-10 w-full items-center justify-between rounded border border-input bg-background px-3 py-2 text-inherit ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
@@ -24,7 +29,18 @@ const SelectTrigger: React.FC<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
+      {isForm ? (
+        <ChevronDown className="h-4 w-4 opacity-50" />
+      ) : (
+        <ChevronDown
+          className={cn(
+            'h-4 w-4 opacity-50',
+            (isScrolled && !isNavOpen) || (pathname !== '/en' && pathname !== '/fr')
+              ? 'invert-0'
+              : 'invert ',
+          )}
+        />
+      )}
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 )
@@ -58,32 +74,59 @@ const SelectScrollDownButton: React.FC<
 const SelectContent: React.FC<
   {
     ref?: React.Ref<HTMLDivElement>
+    isForm?: boolean
   } & React.ComponentProps<typeof SelectPrimitive.Content>
-> = ({ children, className, position = 'popper', ref, ...props }) => (
+> = ({ children, className, position = 'popper', ref, isForm, ...props }) => (
   <SelectPrimitive.Portal>
-    <SelectPrimitive.Content
-      className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border bg-card text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-        position === 'popper' &&
-          'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
-        className,
-      )}
-      position={position}
-      ref={ref}
-      {...props}
-    >
-      <SelectScrollUpButton />
-      <SelectPrimitive.Viewport
+    {isForm ? (
+      <SelectPrimitive.Content
         className={cn(
-          'p-1',
+          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border bg-card text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
           position === 'popper' &&
-            'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
+            'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+          className,
         )}
+        position={position}
+        ref={ref}
+        {...props}
       >
-        {children}
-      </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
-    </SelectPrimitive.Content>
+        <SelectScrollUpButton />
+        <SelectPrimitive.Viewport
+          className={cn(
+            'p-1',
+            position === 'popper' &&
+              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
+          )}
+        >
+          {children}
+        </SelectPrimitive.Viewport>
+        <SelectScrollDownButton />
+      </SelectPrimitive.Content>
+    ) : (
+      <SelectPrimitive.Content
+        className={cn(
+          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border bg-gray-400 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+          position === 'popper' &&
+            'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
+          className,
+        )}
+        position={position}
+        ref={ref}
+        {...props}
+      >
+        <SelectScrollUpButton />
+        <SelectPrimitive.Viewport
+          className={cn(
+            'p-1',
+            position === 'popper' &&
+              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
+          )}
+        >
+          {children}
+        </SelectPrimitive.Viewport>
+        <SelectScrollDownButton />
+      </SelectPrimitive.Content>
+    )}
   </SelectPrimitive.Portal>
 )
 
@@ -98,27 +141,47 @@ const SelectLabel: React.FC<
 )
 
 const SelectItem: React.FC<
-  { ref?: React.Ref<HTMLDivElement>; value: string } & React.ComponentProps<
+  { ref?: React.Ref<HTMLDivElement>; value: string; isForm?: boolean } & React.ComponentProps<
     typeof SelectPrimitive.Item
-  >
-> = ({ children, className, ref, ...props }) => (
-  <SelectPrimitive.Item
-    className={cn(
-      'relative flex w-full cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-      className,
-    )}
-    ref={ref}
-    {...props}
-  >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
-      </SelectPrimitive.ItemIndicator>
-    </span>
+  > & {
+      isForm?: boolean
+    }
+> = ({ children, className, ref, isForm, ...props }) =>
+  isForm ? (
+    <SelectPrimitive.Item
+      className={cn(
+        'relative flex w-full cursor-default select-none items-center  rounded py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        className,
+      )}
+      ref={ref}
+      {...props}
+    >
+      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <SelectPrimitive.ItemIndicator>
+          <Check className="h-4 w-4" />
+        </SelectPrimitive.ItemIndicator>
+      </span>
 
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
-)
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </SelectPrimitive.Item>
+  ) : (
+    <SelectPrimitive.Item
+      className={cn(
+        'relative flex w-full cursor-pointer select-none items-center  rounded py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-gray-600 focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        className,
+      )}
+      ref={ref}
+      {...props}
+    >
+      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <SelectPrimitive.ItemIndicator>
+          <Check className="h-4 w-4" />
+        </SelectPrimitive.ItemIndicator>
+      </span>
+
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </SelectPrimitive.Item>
+  )
 
 const SelectSeparator: React.FC<
   { ref?: React.Ref<HTMLDivElement> } & React.ComponentProps<typeof SelectPrimitive.Separator>

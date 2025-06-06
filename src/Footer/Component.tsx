@@ -21,7 +21,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
             <Logo className="w-[19rem] h-20 max-w-none aspect-auto" />
           </Link>
 
-          <div className="flex flex-row justify-center items-center gap-6">
+          {/* <div className="flex flex-row justify-center items-center gap-6">
             <Link
               href="/privacy-policy"
               className="text-white hover:underline hover:opacity-90 transition-all duration-300"
@@ -34,7 +34,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
             >
               Cookie Policy
             </Link>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col items-start md:flex-row gap-4 md:items-center">
           <div className="flex flex-col justify-center items-start gap-7">
@@ -42,21 +42,12 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
               <p className="text-white uppercase">Contacts</p>
 
               <div className="flex flex-col justify-center items-start gap-1">
-                <p className="text-white">ARAN World srl Unipersonale</p>
                 <p className="text-white max-w-[20rem]">
                   RABAT-Agdal, 457, Avenue Hassan II, Résidence Mariam, Magasin n° 11
                 </p>
                 <p className="text-white">01444880676</p>
               </div>
             </div>
-
-            <Link
-              className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm hover:bg-white hover:text-black transition-all duration-300"
-              href="https://reservedarea.aranworld.it/Sud2/login/view/index.php"
-              target="_blank"
-            >
-              Reserved area
-            </Link>
           </div>
         </div>
         <div className="flex flex-col justify-between items-start gap-7">
@@ -82,13 +73,6 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
                 )
               })}
             </div>
-          </div>
-
-          <div className="flex flex-col justify-center items-start gap-7">
-            <p className="text-white uppercase">Catalogues</p>
-            <button className="bg-transparent text-white py-1 px-8 rounded-full border border-white text-sm hover:bg-white hover:text-black transition-all duration-300">
-              Download the catalog
-            </button>
           </div>
         </div>
       </div>

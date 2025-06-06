@@ -81,6 +81,7 @@ export const Products: CollectionConfig<'products'> = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'mainImage',
