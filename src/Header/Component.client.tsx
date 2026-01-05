@@ -1,5 +1,4 @@
 'use client'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { Link } from '@/i18n/routing'
 import { useRouter, usePathname } from 'next/navigation'
 import React, { useEffect, useState, useTransition } from 'react'

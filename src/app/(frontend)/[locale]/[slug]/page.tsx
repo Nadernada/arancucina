@@ -15,9 +15,9 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { cn } from '@/utilities/ui'
 
 export async function generateStaticParams() {
-  const locales = ['en', 'fr'] as const
+  const locales = ['en', 'fr', 'ar'] as const
   const payload = await getPayload({ config: configPromise })
-  
+
   // Get pages for each locale
   const allParams = await Promise.all(
     locales.map(async (locale) => {
@@ -38,9 +38,9 @@ export async function generateStaticParams() {
           return doc.slug && doc.slug !== 'home'
         })
         .map(({ slug }) => ({
-          params: { locale, slug: slug! }
+          params: { locale, slug: slug! },
         }))
-    })
+    }),
   )
 
   // Flatten the array of arrays

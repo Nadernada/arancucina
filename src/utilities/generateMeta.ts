@@ -75,7 +75,7 @@ export const generateMeta = async (args: GenerateMetaArgs): Promise<Metadata> =>
     }
   }
 
-  const title = metaTitle ? `${metaTitle} | Aran Cucine` : 'Aran Cucine'
+  const title = metaTitle ? `${metaTitle}` : 'Aran Cucine'
 
   // Construct the canonical URL
   const serverUrl = getServerSideURL()
