@@ -125,6 +125,7 @@ export default buildConfig({
         label: {
           en: 'English',
           fr: 'Anglais',
+          ar: 'الإنجليزية',
         },
       },
       {
@@ -132,6 +133,15 @@ export default buildConfig({
         label: {
           en: 'French',
           fr: 'Français',
+          ar: 'الفرنسية',
+        },
+      },
+      {
+        code: 'ar',
+        label: {
+          en: 'Arabic',
+          fr: 'Arabe',
+          ar: 'العربية',
         },
       },
     ],
