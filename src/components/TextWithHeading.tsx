@@ -30,17 +30,19 @@ export const TextWithHeading = (props: TextWithHeadingProp) => {
         })}
       >
         <div className="flex flex-row justify-start items-center gap-8">
-          <h1
-            className={cn(
-              'font-medium leading-[3rem] uppercase font-bodoni w-full xl:w-4/5 mx-0',
-              headingSizeMap[headingSize as keyof typeof headingSizeMap],
-              {
-                'xl:w-2/3': shortHeading,
-              },
-            )}
-          >
-            {heading}
-          </h1>
+          {heading && (
+            <h2
+              className={cn(
+                'font-medium leading-[3rem] uppercase font-bodoni w-full xl:w-4/5 mx-0',
+                headingSizeMap[headingSize as keyof typeof headingSizeMap],
+                {
+                  'xl:w-2/3': shortHeading,
+                },
+              )}
+            >
+              {heading}
+            </h2>
+          )}
           {icon && <Media resource={icon} imgClassName="w-24 h-24 aspect-square max-w-none" />}
         </div>
         {richText && (

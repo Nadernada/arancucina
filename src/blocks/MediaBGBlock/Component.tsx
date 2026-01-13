@@ -55,10 +55,10 @@ export const MediaBGBlock: React.FC<Props> = (props) => {
 
       <div className="flex flex-col lg:flex-row justify-between gap-y-4 items-center container">
         <div className="relative py-6">
-          <h1 className="font-bodoni uppercase text-5xl text-[#A59D95] font-normal">
+          <h2 className="font-bodoni uppercase text-5xl text-[#A59D95] font-normal">
             {t('environment.energy')}
             <br /> <span className="text-white">{t('environment.self-sufficiency')}</span>
-          </h1>
+          </h2>
           <div className="absolute bottom-0 left-0 lg:-left-12 w-full h-[1px] bg-[#A59D95]"></div>
         </div>
         <p className="text-white text-lg lg:w-2/5">

@@ -23,7 +23,7 @@ export const DesignerBlock: React.FC<DesignerBlockType> = ({
           'order-2': theme === 'dark',
         })}
       >
-        <h1 className={cn('text-5xl font-bodoni', { 'text-white': theme === 'dark' })}>{name}</h1>
+        <h2 className={cn('text-5xl font-bodoni', { 'text-white': theme === 'dark' })}>{name}</h2>
         <p className="text-[#a2a2a2]">{description}</p>
         {/* <div className="flex flex-row gap-4 justify-start items-center hover:opacity-60 transition-colors duration-300 mt-4">
           <a

@@ -31,7 +31,7 @@ export const ProductIntroBlock: React.FC<ProductIntroBlockType> = ({
         })}
       >
         {type && <p className="text-[#A59D95] text-base uppercase">{type}</p>}
-        <h1 className="font-bodoni text-black text-3xl">{title}</h1>
+        <h2 className="font-bodoni text-black text-3xl">{title}</h2>
         <p
           className={cn('font-thin text-gray-500', {
             'w-full': finishes || dimensions || (!materials && !store && !catalogue),

@@ -29,9 +29,9 @@ export const Sections = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12 md:gap-y-24 justify-center items-center container">
       <div className="flex flex-row justify-center items-center gap-12">
         <div className="flex flex-col justify-start gap-6 items-center lg:items-end">
-          <h1 className="uppercase text-4xl font-bodoni lg:w-4/5">
+          <h2 className="uppercase text-4xl font-bodoni lg:w-4/5">
             100% <span className="text-[#A59D95]">Made in Italy</span>
-          </h1>
+          </h2>
 
           <p className="text-[#A59D95] lg:w-4/5 text-center lg:text-left">
             {t('company-description')}
@@ -73,10 +73,10 @@ export const Sections = () => {
       </div>
       <div className="flex flex-row justify-center items-center gap-12">
         <div className="flex flex-col justify-start gap-6 items-center lg:items-start">
-          <h1 className="uppercase text-4xl text-[#A59D95] font-bodoni lg:w-3/5 text-center lg:text-left">
+          <h2 className="uppercase text-4xl text-[#A59D95] font-bodoni lg:w-3/5 text-center lg:text-left">
             {t('a-fascinating-history')}
             <span className="text-black">{t('story')}</span>
-          </h1>
+          </h2>
 
           <p className="text-[#A59D95] lg:w-4/5 text-center lg:text-left">{t('company-history')}</p>
         </div>
@@ -101,10 +101,10 @@ export const Sections = () => {
 
       <div className="flex flex-row justify-center items-center gap-12">
         <div className="flex flex-col justify-start gap-6 items-center lg:items-start">
-          <h1 className="uppercase text-4xl font-bodoni lg:w-3/5 text-center lg:text-left">
+          <h2 className="uppercase text-4xl font-bodoni lg:w-3/5 text-center lg:text-left">
             {t('the-excellence')}
             <span className="text-[#A59D95]">{t('of-italian-know-how')}</span>
-          </h1>
+          </h2>
 
           <p className="text-[#A59D95] lg:w-4/5 text-center lg:text-left">{t('know-how-text')}</p>
         </div>
@@ -144,9 +144,9 @@ export const Sections = () => {
 
       <div className="flex flex-row justify-center items-center gap-12">
         <div className="flex flex-col justify-start gap-6 items-center lg:items-start">
-          <h1 className="uppercase text-4xl font-bodoni lg:w-3/5 text-center lg:text-left">
+          <h2 className="uppercase text-4xl font-bodoni lg:w-3/5 text-center lg:text-left">
             {t('our-strength')} <span className="text-[#A59D95]">{t('is-human-value')}</span>
-          </h1>
+          </h2>
 
           <p className="text-[#A59D95] lg:w-4/5 text-center lg:text-left">{t('strength-text')}</p>
         </div>

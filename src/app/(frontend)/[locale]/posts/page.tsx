@@ -39,7 +39,7 @@ export default async function Page({ params }: Args) {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+          <h2>Posts</h2>
         </div>
       </div>
 

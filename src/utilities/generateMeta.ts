@@ -81,7 +81,7 @@ export const generateMeta = async (args: GenerateMetaArgs): Promise<Metadata> =>
   const serverUrl = getServerSideURL()
 
   // Determine the path portion of the URL
-  const canonicalPath = path
+  let canonicalPath = path
     ? // If a specific path is provided, use it
       path
     : // Otherwise construct from slug
@@ -91,9 +91,14 @@ export const generateMeta = async (args: GenerateMetaArgs): Promise<Metadata> =>
         : `/${slug}`
       : ''
 
-  // Add locale prefix if not the default locale
-  const localePath = locale !== 'en' ? `/${locale}` : ''
-  const canonicalUrl = `${serverUrl}${localePath}${canonicalPath}`
+  // Remove trailing slashes to prevent canonical URLs from having trailing slashes
+  canonicalPath = canonicalPath.replace(/\/+$/, '')
+
+  // Add locale prefix for all locales (matching [locale] routing structure)
+  const localePath = `/${locale}`
+  const canonicalUrl = canonicalPath
+    ? `${serverUrl}${localePath}${canonicalPath}`
+    : `${serverUrl}${localePath}`
 
   return {
     description: metaDescription,

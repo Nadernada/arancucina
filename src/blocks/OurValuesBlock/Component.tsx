@@ -12,7 +12,7 @@ export const OurValuesBlock: React.FC<OurValuesBlockType> = ({ content }) => {
             className="flex flex-row justify-between items-center gap-12 w-full md:w-[50%]"
           >
             <div className="flex flex-col justify-center items-start gap-6">
-              <h1 className="text-3xl font-bodoni uppercase">{item.title}</h1>
+              <h3 className="text-3xl font-bodoni uppercase">{item.title}</h3>
               <p>{item.text}</p>
               <Image src="/images/See-More_Line.png" alt="long-arrow" width={56} height={24} />
             </div>

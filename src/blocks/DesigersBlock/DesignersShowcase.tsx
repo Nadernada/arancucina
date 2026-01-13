@@ -114,11 +114,11 @@ export const DesignersShowcase = ({ designers }: { designers: Designer[] }) => {
   return (
     <div className="container mx-auto px-4 py-12 xl:py-24">
       <div className="mb-16">
-        <h1 className="text-4xl xl:text-6xl font-light tracking-tight uppercase font-bodoni">
+        <h2 className="text-4xl xl:text-6xl font-light tracking-tight uppercase font-bodoni">
           {t('the-names-that-make')}
           <br />
           {t('the-difference')}
-        </h1>
+        </h2>
         <div className="w-24 h-0.5 bg-black mt-6"></div>
       </div>
 
