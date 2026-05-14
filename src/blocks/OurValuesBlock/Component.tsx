@@ -16,7 +16,7 @@ export const OurValuesBlock: React.FC<OurValuesBlockType> = ({ content }) => {
               <p>{item.text}</p>
               <Image src="/images/See-More_Line.png" alt="long-arrow" width={56} height={24} />
             </div>
-            <Media resource={item.image} imgClassName="w aspect-square max-w-none" />
+            <Media resource={item.image} imgClassName="aspect-square max-w-none" />
           </div>
         )
       })}

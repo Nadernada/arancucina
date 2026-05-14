@@ -18,7 +18,7 @@ export const CarouselBlock = async ({ relationTo }: { relationTo: CollectionSlug
 
   return (
     <div className="container p-4 md:p-10 xl:p-16">
-      <EmblaCarousel slides={content} options={options} />
+      <EmblaCarousel relationTo={relationTo} slides={content} options={options} />
     </div>
   )
 }

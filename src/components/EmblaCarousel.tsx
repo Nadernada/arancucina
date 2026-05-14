@@ -17,10 +17,11 @@ const numberWithinRange = (number: number, min: number, max: number): number =>
 type PropType = {
   slides: DataFromCollectionSlug<CollectionSlug>[]
   options?: EmblaOptionsType
+  relationTo: CollectionSlug
 }
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props
+  const { slides, options, relationTo } = props
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const tweenFactor = useRef(0)
   const tweenNodes = useRef<HTMLElement[]>([])
@@ -80,23 +81,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         const tweenNode = tweenNodes.current[slideIndex]
         const tweenParentNode = tweenParentNodes.current[slideIndex]
 
-        // 🎯 Calculate relative position in loop-aware way
-        const diff = (slideIndex - selectedIndex + slideCount) % slideCount
-        const isPrev = diff === slideCount - 1
-        const isNext = diff === 1
-        const isCurrent = slideIndex === selectedIndex
+        // Continuous translateX based on diffToTarget for smooth interpolation
+        const translateX = numberWithinRange(diffToTarget * -46, -46, 46).toFixed(2)
+        const zIndex = Math.round(numberWithinRange(10 - Math.abs(diffToTarget) * 10, 1, 10))
 
-        let transform = `scale(${scale})`
-        let zIndex = 1
-
-        if (isCurrent) {
-          transform = `scale(${scale})`
-          zIndex = 3
-        } else if (isPrev) {
-          transform = `translateX(46%) scale(${scale})`
-        } else if (isNext) {
-          transform = `translateX(-46%) scale(${scale})`
-        }
+        const transform = `translateX(${translateX}%) scale(${scale})`
         if (tweenNode && tweenParentNode) {
           tweenNode.style.transform = transform
           tweenParentNode.style.zIndex = zIndex.toString()
@@ -131,33 +120,37 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           />
           <div className="embla__viewport" ref={emblaRef}>
             <div className="embla__container">
-              {slides.map((item, index) => (
-                <Link
-                  className="embla__slide cursor-pointer"
-                  key={index}
-                  href={(item as { slug: string }).slug}
-                >
-                  <div className="embla__slide__number relative overflow-hidden rounded-none">
-                    <h4 className="absolute bottom-2 left-2 md:left-6 text-white font-bodoni text-[1rem] md:text-[1.5rem] lg:text-[2rem] uppercase font-normal z-20">
-                      {(item as { models: { title: string } }).models.title}
-                    </h4>
+              {slides.map((item, index) => {
+                const slug = (item as { slug: string }).slug
+                const path = relationTo === 'kitchens' ? '/kitchens' : ''
+                return (
+                  <Link
+                    className="embla__slide cursor-pointer group"
+                    key={index}
+                    href={`${path}/${slug}`}
+                  >
+                    <div className="embla__slide__number relative overflow-hidden rounded-none">
+                      <h4 className="absolute bottom-2 left-2 md:left-6 text-white font-bodoni text-[1rem] md:text-[1.5rem] lg:text-[2rem] uppercase font-normal z-20">
+                        {(item as { models: { title: string } }).models.title}
+                      </h4>
 
-                    <div className="w-full h-full relative">
-                      <Image
-                        src={
-                          (item as { models: { thumbImage: { url: string } } }).models.thumbImage
-                            .url
-                        }
-                        alt={(item as { models: { title: string } }).models.title}
-                        width={1920}
-                        height={1080}
-                        className="w-full h-full absolute object-cover inset-0 "
-                      />
-                      <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-b from-transparent to-black opacity-80 z-10"></div>
+                      <div className="w-full h-full relative">
+                        <Image
+                          src={
+                            (item as { models: { thumbImage: { url: string } } }).models.thumbImage
+                              .url
+                          }
+                          alt={(item as { models: { title: string } }).models.title}
+                          width={1920}
+                          height={1080}
+                          className="w-full h-full absolute object-cover inset-0 group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-b from-transparent to-black opacity-80 z-10"></div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           </div>
 

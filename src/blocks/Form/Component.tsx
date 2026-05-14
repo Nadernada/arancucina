@@ -161,7 +161,7 @@ export const FormBlock: React.FC<
     >
       {enableIntro && introContent && !hasSubmitted && (
         <RichText
-          className="mb-8 lg:mb-12 text-center font-bodoni"
+          className="mb-8 lg:mb-10 text-center font-bodoni [&_h3]:text-4xl [&_h3]:font-bold [&_h3]:mb-0"
           data={introContent}
           enableGutter={false}
         />
@@ -215,7 +215,7 @@ export const FormBlock: React.FC<
             <form
               id={formID}
               onSubmit={handleSubmit(onSubmit)}
-              className={cn('!max-w-[35rem]', onlyForm && '!w-full')}
+              className={cn('!max-w-[35rem]', onlyForm && '!w-full !max-w-[49rem]')}
             >
               <div className="mb-4 last:mb-0 grid grid-cols-2 gap-4">
                 {formFromProps &&

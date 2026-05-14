@@ -144,6 +144,8 @@ html[data-theme='light'] {
   justify-content: center;
   height: var(--slide-height);
   user-select: none;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
 }
 .embla__controls {
   display: grid;

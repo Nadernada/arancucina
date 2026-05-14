@@ -20,6 +20,11 @@ export const ProductIntroBlock: Block = {
       defaultValue: true,
     },
     {
+      name: 'catalogFile',
+      type: 'upload',
+      relationTo: 'files',
+    },
+    {
       name: 'materials',
       type: 'checkbox',
       defaultValue: true,

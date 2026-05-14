@@ -108,7 +108,8 @@ export default async function Page({ params: paramsPromise }: Args) {
               </div>
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <Media
-                  imgClassName="object-cover z-0 group-hover:scale-110 transition-all duration-300"
+                  imgClassName="object-cover z-0 transition-all duration-300"
+                  className="relative w-full h-full"
                   resource={product.mainImage}
                   fill
                 />
@@ -134,10 +135,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   // Construct the path for this page
   const path = `/kitchens/${slug}`
 
-  return generateMeta({ 
+  return generateMeta({
     doc: page,
     locale,
-    path
+    path,
   })
 }
 

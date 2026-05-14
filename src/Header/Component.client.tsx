@@ -160,14 +160,14 @@ export function LocaleSwitcher({
         >
           <SelectValue placeholder="Language" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="w-fit">
           {localization.locales
             .sort((a, b) => a.label.localeCompare(b.label))
             .map((locale) => (
               <SelectItem
                 value={locale.code}
                 key={locale.code}
-                className={cn('flex flex-row gap-3 items-center text-xs', {})}
+                className={cn('flex flex-row gap-3 items-center text-xs w-fit', {})}
               >
                 <div
                   className={cn(
@@ -183,8 +183,6 @@ export function LocaleSwitcher({
                     height={20}
                     alt={locale.label}
                   />
-
-                  {locale.label}
                 </div>
               </SelectItem>
             ))}

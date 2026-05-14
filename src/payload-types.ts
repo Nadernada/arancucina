@@ -1068,6 +1068,7 @@ export interface ProductIntroBlock {
   title?: string | null;
   description?: string | null;
   catalogue?: boolean | null;
+  catalogFile?: (string | null) | File;
   materials?: boolean | null;
   store?: boolean | null;
   type?: string | null;
@@ -1076,6 +1077,26 @@ export interface ProductIntroBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ProductIntroBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "files".
+ */
+export interface File {
+  id: string;
+  title: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1200,26 +1221,6 @@ export interface CatalogueBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'CatalogueBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "files".
- */
-export interface File {
-  id: string;
-  title: string;
-  description?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2193,6 +2194,7 @@ export interface ProductIntroBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   catalogue?: T;
+  catalogFile?: T;
   materials?: T;
   store?: T;
   type?: T;

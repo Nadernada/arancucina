@@ -16,6 +16,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   threshold = 0.1,
   rootMargin = '50px',
   className,
+  fill,
+  width,
+  height,
   ...props
 }) => {
   const [isInView, setIsInView] = useState(loading === 'eager')
@@ -56,6 +59,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         <>
           <Image
             {...props}
+            {...(fill ? { fill: true } : { width, height })}
             onLoad={handleLoad}
             loading={loading}
             quality={85}
@@ -66,14 +70,13 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
               transition: 'opacity 0.3s ease-in-out',
               objectFit: 'cover',
             }}
-            fill
           />
           {!isLoaded && (
             <div
               className="animate-pulse bg-gray-200 dark:bg-gray-700"
               style={{
-                width: props.width || '100%',
-                height: props.height || '100%',
+                width: width || '100%',
+                height: height || '100%',
                 position: 'absolute',
                 top: 0,
                 left: 0,
