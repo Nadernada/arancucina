@@ -525,6 +525,11 @@ export interface ContentBlock {
  */
 export interface MediaBlock {
   media: string | Media;
+  /**
+   * Poster image shown before the video is played
+   */
+  videoThumbnail?: (string | null) | Media;
+  showPlayButton?: boolean | null;
   noContainer?: boolean | null;
   id?: string | null;
   blockName?: string | null;
@@ -1707,6 +1712,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  videoThumbnail?: T;
+  showPlayButton?: T;
   noContainer?: T;
   id?: T;
   blockName?: T;

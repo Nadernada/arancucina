@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { Bodoni_Moda } from 'next/font/google'
 import React from 'react'
 import Script from 'next/script'
 
@@ -23,6 +24,12 @@ import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
+
+const bodoniModaSC = Bodoni_Moda({
+  subsets: ['latin'],
+  variable: '--font-bodoni',
+  display: 'swap',
+})
 
 export default async function RootLayout({
   children,
@@ -46,7 +53,7 @@ export default async function RootLayout({
 
   return (
     <html
-      className={cn(GeistSans.variable, GeistMono.variable)}
+      className={cn(GeistSans.variable, GeistMono.variable, bodoniModaSC.variable)}
       lang={locale}
       suppressHydrationWarning
     >

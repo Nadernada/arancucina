@@ -39,14 +39,17 @@ export const TextWithHeading = (props: TextWithHeadingProp) => {
                   'xl:w-2/3': shortHeading,
                 },
               )}
-            >
-              {heading}
-            </h2>
+              dangerouslySetInnerHTML={{ __html: heading }}
+            />
           )}
           {icon && <Media resource={icon} imgClassName="w-24 h-24 aspect-square max-w-none" />}
         </div>
         {richText && (
-          <RichText data={richText} enableGutter={false} className="w-full xl:w-4/5 mx-0" />
+          <RichText
+            data={richText}
+            enableGutter={false}
+            className="w-full xl:w-4/5 mx-0 text-maroon"
+          />
         )}
       </div>
     </div>

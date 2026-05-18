@@ -19,7 +19,9 @@ export interface Props {
   size?: string // for NextImage only
   src?: StaticImageData // for static media
   videoClassName?: string
-  
+  videoThumbnail?: MediaType | string | number | null
+  showPlayButton?: boolean | null
+
   // Accessibility attributes
   role?: string
   'aria-hidden'?: boolean

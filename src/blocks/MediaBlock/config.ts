@@ -11,6 +11,21 @@ export const MediaBlock: Block = {
       required: true,
     },
     {
+      name: 'videoThumbnail',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Video Thumbnail',
+      admin: {
+        description: 'Poster image shown before the video is played',
+      },
+    },
+    {
+      name: 'showPlayButton',
+      type: 'checkbox',
+      label: 'Show Play Button',
+      defaultValue: false,
+    },
+    {
       name: 'noContainer',
       type: 'checkbox',
       defaultValue: false,

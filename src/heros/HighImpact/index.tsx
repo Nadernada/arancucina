@@ -56,10 +56,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
         <div className="w-full h-full absolute z-[1] bg-black/30 inset-0" />
 
         <div className="flex flex-col gap-4 justify-center items-center inset-0 absolute w-full h-full z-[2] p-6 md:p-0">
-          <h1 className="text-6xl uppercase font-bold font-bodoni md:w-[80%] lg:w-2/3 xl:w-1/2 text-center">
-            {title}
-          </h1>
-          <h2 className="text-xl text-center font-thin ">{subtitle}</h2>
+          <h1
+            className="text-6xl uppercase font-bold font-bodoni md:w-[80%] lg:w-2/3 xl:w-1/2 text-center"
+            dangerouslySetInnerHTML={{ __html: title || '' }}
+          />
+          <h2 className="text-xl text-center font-bold ">{subtitle}</h2>
         </div>
       </div>
     </div>

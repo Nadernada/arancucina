@@ -26,6 +26,8 @@ export const MediaBlock: React.FC<Props> = (props) => {
     enableGutter = true,
     imgClassName,
     media,
+    videoThumbnail,
+    showPlayButton,
     staticImage,
     disableInnerContainer,
     noContainer,
@@ -49,20 +51,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
           imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
           resource={media}
           src={staticImage}
+          videoThumbnail={videoThumbnail}
+          showPlayButton={showPlayButton}
         />
-      )}
-      {caption && (
-        <div
-          className={cn(
-            'mt-6',
-            {
-              container: !disableInnerContainer,
-            },
-            captionClassName,
-          )}
-        >
-          <RichText data={caption} enableGutter={false} />
-        </div>
       )}
     </div>
   )
