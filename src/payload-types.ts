@@ -1832,21 +1832,21 @@ export interface OurValuesBlockSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Heading Block_select".
  */
-export interface HeadingBlockSelect {
-  title?: boolean;
-  size?: boolean;
-  text?: boolean;
-  id?: boolean;
-  blockName?: boolean;
+export interface HeadingBlockSelect<T extends boolean = true> {
+  title?: T;
+  size?: T;
+  text?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Who We Are_select".
  */
-export interface WhoWeAreSelect {
-  title?: boolean;
-  id?: boolean;
-  blockName?: boolean;
+export interface WhoWeAreSelect<T extends boolean = true> {
+  title?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2251,36 +2251,36 @@ export interface HeadingWithTextBlockSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Tabs Block_select".
  */
-export interface TabsBlockSelect {
+export interface TabsBlockSelect<T extends boolean = true> {
   category?:
-    | boolean
+    | T
     | {
-        tabName?: boolean;
+        tabName?: T;
         finishes?:
-          | boolean
+          | T
           | {
-              title?: boolean;
-              image?: boolean;
-              id?: boolean;
+              title?: T;
+              image?: T;
+              id?: T;
             };
-        id?: boolean;
+        id?: T;
       };
-  padding?: boolean;
-  id?: boolean;
-  blockName?: boolean;
+  padding?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Parallax Block_select".
  */
-export interface ParallaxBlockSelect {
-  image?: boolean;
-  whiteText?: boolean;
-  brownText?: boolean;
-  size?: boolean;
-  noParallax?: boolean;
-  id?: boolean;
-  blockName?: boolean;
+export interface ParallaxBlockSelect<T extends boolean = true> {
+  image?: T;
+  whiteText?: T;
+  brownText?: T;
+  size?: T;
+  noParallax?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2326,10 +2326,10 @@ export interface DimensionsBlockSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Catalogue Block_select".
  */
-export interface CatalogueBlockSelect {
-  pdf?: boolean;
-  id?: boolean;
-  blockName?: boolean;
+export interface CatalogueBlockSelect<T extends boolean = true> {
+  pdf?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
