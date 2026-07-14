@@ -32,10 +32,7 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Enable experimental features for better performance
-  experimental: {
-    // Enable optimized CSS loading
-    optimizeCss: true,
-  },
+  experimental: {},
   // Optimize JavaScript bundles
   compiler: {
     // Keep all console statements

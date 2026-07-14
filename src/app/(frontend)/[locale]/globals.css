@@ -1,4 +1,6 @@
 /* Tailwind CSS directives - IDE may show warnings but these are valid */
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -87,8 +89,6 @@
   font-display: swap;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');
-
 body {
   font-family: 'Avenir', sans-serif;
 }
@@ -104,6 +104,7 @@ body {
 
 html {
   opacity: 0;
+  font-size: 18px;
 }
 
 html[data-theme='dark'],
