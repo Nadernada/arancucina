@@ -14,18 +14,14 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
   const navItems = footerData?.navItems || []
 
   return (
-    <footer 
-      className="mt-auto border-t border-border bg-black dark:bg-card text-white flex flex-col justify-center items-center py-8" 
+    <footer
+      className="mt-auto border-t border-border bg-black dark:bg-card text-white flex flex-col justify-center items-center py-8"
       role="contentinfo"
       aria-label="Site footer"
     >
       <div className="container py-8 gap-8 flex flex-col lg:flex-row md:justify-between">
         <div className="flex flex-col justify-center items-start gap-6">
-          <Link 
-            className="flex items-center" 
-            href="/" 
-            aria-label="Go to homepage"
-          >
+          <Link className="flex items-center" href="/" aria-label="Go to homepage">
             <Logo className="w-[19rem] h-20 max-w-none aspect-auto" />
           </Link>
 
@@ -53,7 +49,13 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
                 <p className="text-white max-w-[20rem]">
                   RABAT-Agdal, 457, Avenue Hassan II, Résidence Mariam, Magasin n° 11
                 </p>
-                <a href="tel:01444880676" className="text-white hover:underline focus:underline focus:outline-offset-4" aria-label="Call us at 0 1 4 4 4 8 8 0 6 7 6">01444880676</a>
+                <a
+                  href="tel:+212661491103"
+                  className="text-white hover:underline focus:underline focus:outline-offset-4"
+                  aria-label="Call us at +212661491103"
+                >
+                  +212661491103
+                </a>
               </address>
             </div>
           </div>
@@ -64,7 +66,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
 
             <nav aria-label="Social media links" className="grid grid-cols-3 gap-y-4 gap-x-10">
               {footerData?.socials?.map(({ link, icon }, i) => {
-                const socialName = (icon as Media)?.alt || `Social link ${i + 1}`;
+                const socialName = (icon as Media)?.alt || `Social link ${i + 1}`
                 return (
                   <Link
                     href={link?.url || ''}
@@ -90,8 +92,8 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
       </div>
       <p className="text-white p-4 text-center">
         © {new Date().getFullYear()} Copyright, all rights reserved. Powered by{' '}
-        <Link 
-          href={'https://webloo.com/'} 
+        <Link
+          href={'https://webloo.com/'}
           className="underline cursor-pointer hover:opacity-80 focus:outline-offset-4"
           aria-label="Visit Webloo website"
           rel="noopener noreferrer"
